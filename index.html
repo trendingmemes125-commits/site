@@ -6,7 +6,11 @@
 <title>Captain Manjiro</title>
 
 
+
 <!-- Human Verification Overlay -->
+
+
+
 <div id="humanCheck" class="human-check-overlay">
   <div class="human-check-box">
     <h2>Are you human?</h2>
@@ -34,6 +38,8 @@ function generatePuzzle() {
   return answer;
 }
 
+
+
 let correctAnswer = generatePuzzle();
 
 verifyBtn.addEventListener("click", () => {
@@ -49,8 +55,24 @@ verifyBtn.addEventListener("click", () => {
 puzzleAnswer.addEventListener("keyup", (e) => {
   if (e.key === "Enter") verifyBtn.click();
 });
-</script>
 
+
+verifyBtn.addEventListener("click", () => {
+  if (parseInt(puzzleAnswer.value) === correctAnswer) {
+
+    overlay.style.display = "none";
+
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.4;
+    music.play().catch(()=>{});
+
+  } else {
+    errorMsg.style.display = "block";
+    puzzleAnswer.value = "";
+    correctAnswer = generatePuzzle();
+  }
+});
+</script>
 
 
 
@@ -272,6 +294,10 @@ body {
 </html>
 
 
+<!-- Anime Background Video -->
+<video autoplay muted loop id="animeBg">
+  <source src="C:\Users\xxsup\Downloads\Video\Eclipse The Awakening Live Wallpaper.mp4" type="video/mp4">
+</video>
 
 
 
@@ -279,6 +305,9 @@ body {
 
 <style>
 *{
+  
+
+
 margin:0;
 padding:0;
 box-sizing:border-box;
@@ -445,30 +474,31 @@ overflow-x:hidden;
 
 
 
-/* Animated Lines Background */
-body::before {
-  content: "";
+
+/* Animated Lines Background */ 
+
+/* Anime Background Video */
+#animeBg{
   position: fixed;
   top: 0;
   left: 0;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(#fff 1px, transparent 1px) repeat;
-  background-size: 50px 50px;
-  animation: moveStars 30s linear infinite;
-  z-index: -1;
-  opacity: 0.2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
 }
 
-@keyframes moveStars {
-  from { transform: translate(0, 0); }
-  to { transform: translate(-500px, -500px); }
+/* Dark overlay so text is readable */
+body::after{
+  content: "";
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.65);
+  z-index:-1;
 }
-
-
-
-
-
 
 
 
@@ -875,5 +905,6 @@ card.style.display = text.includes(filter) ? "" : "none";
 
 </body>
 </html>
+
 
 
