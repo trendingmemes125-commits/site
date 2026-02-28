@@ -3,514 +3,732 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Captain Manjiro</title>
-
-<div style="position: relative;"><iframe src="https://publisher.linkvertise.com/cdn/ads/LV-728x90/index.html" frameborder="0" height="90" width="728"></iframe><a href="https://publisher.linkvertise.com/ac/1180115" target="_blank" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;"></a></div>
-
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-
+<title>Captain Manjiro — Script Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* GLOBAL STYLES */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Orbitron', sans-serif;
+:root {
+  --white: #ffffff;
+  --off-white: #e8e8e8;
+  --dim: #888;
+  --darker: #111;
+  --card-bg: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.1);
+  --border-bright: rgba(255,255,255,0.3);
 }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
 
 body {
   background: #000;
   color: #fff;
+  font-family: 'Rajdhani', sans-serif;
   overflow-x: hidden;
+  cursor: default;
 }
 
-
-/* SCROLLABLE SCRIPT LIST */
-.script-container {
-  max-width: 1200px;
-  max-height: 500px; /* Fixed height for scroll */
-  margin: auto;
-  overflow-y: auto;
-  padding-right: 10px;
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9998; opacity: 0.4;
 }
 
-/* Custom Scrollbar */
-.script-container::-webkit-scrollbar {
-  width: 8px;
-}
-
-.script-container::-webkit-scrollbar-thumb {
-  background: #fff;
-  border-radius: 10px;
-}
-
-/* HUMAN VERIFICATION OVERLAY */
-.human-check-overlay {
-  position: fixed;
-  top: 0; left: 0;
+/* ── VIDEO BG ── */
+#animeBg {
+  position: fixed; inset: 0;
   width: 100%; height: 100%;
-  background: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  object-fit: cover;
+  z-index: -2;
+  opacity: 0.35;
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.75) 100%);
+  z-index: -1;
+}
+
+/* ── HUMAN CHECK ── */
+.human-check-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.96);
+  display: flex; align-items: center; justify-content: center;
   z-index: 9999;
+  backdrop-filter: blur(20px);
 }
 
 .human-check-box {
-  background: #000;
-  border: 2px solid #fff;
-  padding: 40px;
-  border-radius: 15px;
+  background: #0a0a0a;
+  border: 1px solid var(--border-bright);
+  border-radius: 2px;
+  padding: 52px 48px;
   text-align: center;
-  box-shadow: 0 0 20px #000;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  overflow: hidden;
+}
+
+.human-check-box::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+}
+
+.human-check-box h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.4rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+
+.human-check-box p {
+  font-size: 14px;
+  color: var(--dim);
+  margin-bottom: 6px;
+  letter-spacing: 0.04em;
+}
+
+#puzzleQuestion {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.4rem;
   color: #fff;
+  margin: 20px 0;
 }
 
 .human-check-box input {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #000;
-  background: #fff;
-  color: #000;
-  margin-top: 10px;
+  width: 100%;
+  padding: 14px 18px;
+  background: #111;
+  border: 1px solid var(--border);
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  outline: none;
+  border-radius: 2px;
+  text-align: center;
+  margin-bottom: 14px;
+  transition: border-color 0.2s;
 }
+
+.human-check-box input:focus { border-color: var(--white); }
 
 .human-check-box button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  background: #000;
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.human-check-box button:hover {
+  width: 100%;
+  padding: 14px;
   background: #fff;
   color: #000;
-  box-shadow: 0 0 15px #000;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.14em;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
 }
 
-/* HEADER */
+.human-check-box button:hover { background: #e0e0e0; }
+.human-check-box button:active { transform: scale(0.98); }
+
+#errorMsg {
+  font-size: 12px;
+  color: #ff5555;
+  margin-top: 10px;
+  display: none;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+/* ── HEADER ── */
 header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 20px 60px;
-  border-bottom: 1px solid #fff;
+  justify-content: space-between;
+  padding: 28px 60px;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(20px);
 }
 
 .logo {
-  font-size: 28px;
-  font-weight: 900;
-  letter-spacing: 3px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.16em;
+  color: #fff;
+}
+
+.logo span { color: var(--dim); font-size: 0.8rem; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.3em; margin-left: 10px; vertical-align: middle; }
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-wrap::before {
+  content: '⌕';
+  position: absolute;
+  left: 14px;
+  font-size: 18px;
+  color: var(--dim);
+  pointer-events: none;
 }
 
 nav input {
-  padding: 10px 20px;
-  border-radius: 30px;
-  border: 1px solid #fff;
-  background: #000;
+  padding: 10px 18px 10px 40px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 2px;
   color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.06em;
   outline: none;
+  width: 240px;
+  transition: border-color 0.2s, background 0.2s;
 }
 
-/* SECTIONS */
-.section {
-  padding: 80px 40px;
-  text-align: center;
-}
+nav input::placeholder { color: var(--dim); }
+nav input:focus { border-color: var(--white); background: rgba(255,255,255,0.08); }
 
-.section h2 {
-  margin-bottom: 30px;
-  letter-spacing: 2px;
-}
-
-/* ACTION BUTTONS */
-.action-buttons {
+/* ── ACTION STRIP ── */
+.action-strip {
   display: flex;
-  gap: 20px;
+  align-items: center;
   justify-content: center;
-  margin-bottom: 40px;
+  gap: 0;
+  padding: 0 60px;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
 }
 
-.action-buttons a {
-  position: relative;
+.action-strip a {
   display: inline-flex;
   align-items: center;
-  padding: 12px 24px;
-  background: #0e0e0e;
-  color: #fff;
+  gap: 8px;
+  padding: 18px 28px;
+  color: var(--dim);
   text-decoration: none;
-  font-weight: 700;
-  font-size: 16px;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: color 0.3s ease;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
 }
 
-.action-buttons a::before {
-  content: "★";
-  display: inline-block;
-  margin-right: 10px;
-  font-size: 18px;
-  color: #000;
-  animation: glow 1.5s infinite alternate;
+.action-strip a:hover { color: #fff; border-bottom-color: #fff; }
+
+.action-strip a::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+  flex-shrink: 0;
 }
 
-@keyframes glow {
-  0% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff; }
-  50% { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff; }
-  100% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff; }
+/* ── SECTION TITLES ── */
+.section { padding: 80px 60px; }
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  line-height: 1;
 }
 
-.action-buttons a:hover::before { color: #fff; }
+.section-subtitle {
+  font-size: 13px;
+  color: var(--dim);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 48px;
+}
 
-/* YOUTUBE VIDEO GRID */
+/* ── VIDEO GRID ── */
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  max-width: 1000px;
-  margin: auto;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .video-card {
-  text-align: center;
-  margin-bottom: 20px;
-  background: #000;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid #333;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   position: relative;
+  overflow: hidden;
   cursor: pointer;
+  aspect-ratio: 16/9;
+  background: #111;
 }
 
-.video-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 0 20px #fff;
-  border-color: #fff;
-  z-index: 10;
+.video-card::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.3);
+  transition: background 0.3s;
 }
+
+.video-card:hover::after { background: rgba(0,0,0,0.1); }
 
 .video-thumbnail {
-  width: 100%;
-  height: 180px;
+  width: 100%; height: 100%;
   object-fit: cover;
-  border-radius: 10px;
   display: block;
-  margin: 0 auto;
-  transition: transform 0.2s;
+  transition: transform 0.5s ease;
 }
 
-.video-thumbnail:hover {
-  transform: scale(1.05);
-}
+.video-card:hover .video-thumbnail { transform: scale(1.06); }
 
-.video-icon {
+.video-play-icon {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 30px;
-  height: 30px;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 2;
-  border-radius: 50%;
-  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
-/* SCRIPT CARDS */
+.video-card:hover .video-play-icon { opacity: 1; }
+
+.play-circle {
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  color: #000;
+  padding-left: 4px;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  width: 100%; height: 1px;
+  background: var(--border);
+  margin: 0 60px;
+  width: calc(100% - 120px);
+}
+
+/* ── SCRIPT GRID ── */
+.scripts-section {
+  padding: 80px 60px;
+}
+
+.scripts-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.scripts-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--dim);
+  padding-bottom: 4px;
+}
+
 .ads-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  max-width: 1200px;
-  margin: auto;
+  gap: 2px;
 }
 
 @media(max-width:900px){ .ads-grid { grid-template-columns: repeat(2,1fr); } }
 @media(max-width:600px){ .ads-grid { grid-template-columns: 1fr; } }
 
+/* ── SCRIPT CARD ── */
 .ad-card {
-  text-align: center;
-  background: #000;
-  border: 1px solid #fff;
-  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid transparent;
+  position: relative;
   overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: border-color 0.25s;
+  display: flex;
+  flex-direction: column;
 }
 
-.ad-card img {
-  width: 100%;
-  border-radius: 12px;
-  border: 3px solid #000;
-  transition: 0.3s;
+.ad-card:hover { border-color: rgba(255,255,255,0.2); }
+
+.ad-card:hover .card-img { transform: scale(1.04); }
+
+.card-img-wrap {
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  background: #0d0d0d;
 }
 
-.ad-card img:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 20px #fff;
+.card-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.card-body {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 6px;
+}
+
+.card-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  color: #fff;
+}
+
+.card-desc {
+  font-size: 12px;
+  color: var(--dim);
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--dim);
+  border-radius: 1px;
+  text-transform: uppercase;
 }
 
 .download-btn {
   display: block;
-  margin: 15px auto;
-  padding: 12px 20px;
-  width: 80%;
-  background: #fff;
-  color: #000;
+  margin-top: 14px;
+  padding: 11px 0;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
   text-decoration: none;
-  font-weight: bold;
-  border-radius: 30px;
-  transition: 0.3s;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  transition: background 0.2s, border-color 0.2s;
+  border-radius: 1px;
 }
 
 .download-btn:hover {
-  background: #d1d1d1;
-  box-shadow: 0 0 15px #fff;
+  background: #fff;
+  color: #000;
+  border-color: #fff;
 }
 
-.ad-card h3 {
-  font-size: 15px;
-  margin-top: 10px;
-  color: #fff;
-}
-
-/* ANIME BACKGROUND */
-#animeBg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -2;
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background: rgba(0,0,0,0.65);
-  z-index:-1;
-}
-
-/* FOOTER */
+/* ── FOOTER ── */
 footer {
   text-align: center;
-  padding: 30px;
-  margin-top: 60px;
-  border-top: 1px solid #fff;
+  padding: 40px 60px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--dim);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
 }
 
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
+
+/* ── MEDIA ── */
 @media(max-width:768px){
-  header { flex-direction: column; gap: 15px; padding: 20px; }
-  .section { padding: 60px 20px; }
+  header { flex-direction: column; gap: 16px; padding: 20px 24px; }
+  .section { padding: 60px 24px; }
+  .scripts-section { padding: 60px 24px; }
+  .section-title { font-size: 2rem; }
+  .video-grid { grid-template-columns: 1fr; }
+  .action-strip { padding: 0 24px; }
+  .divider { margin: 0 24px; width: calc(100% - 48px); }
+  .scripts-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+
+/* ── STAGGER ANIMATION ── */
+.ad-card { animation: fadeUp 0.4s ease both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 </style>
-
 </head>
-
-
-
 <body>
 
-
-<!-- HUMAN VERIFICATION -->
+<!-- HUMAN CHECK -->
 <div id="humanCheck" class="human-check-overlay">
   <div class="human-check-box">
-    <h2>Are you human?</h2>
-    <p>Solve this puzzle to enter the site:</p>
+    <h2>Access Gate</h2>
+    <p>Verify you're human to continue</p>
     <p id="puzzleQuestion">Loading...</p>
-    <input type="text" id="puzzleAnswer" placeholder="Enter your answer">
-    <button id="verifyBtn">Verify</button>
-    <p id="errorMsg" style="color:red; margin-top:10px; display:none;">Wrong, try again!</p>
+    <input type="text" id="puzzleAnswer" placeholder="Answer">
+    <button id="verifyBtn">Enter Site</button>
+    <p id="errorMsg">Incorrect — try again.</p>
   </div>
 </div>
 
-<!-- ANIME BACKGROUND VIDEO -->
-<video autoplay muted loop id="animeBg">
+<!-- VIDEO BACKGROUND -->
+<video autoplay muted loop id="animeBg" playsinline>
   <source src="https://res.cloudinary.com/ddjaubjvv/video/upload/v1772110382/Eclipse_The_Awakening_Live_Wallpaper_gziow6.mp4" type="video/mp4">
 </video>
 
 <!-- HEADER -->
 <header>
-  <div class="logo">Captain Manjiro YT</div>
+  <div class="logo">Captain Manjiro <span>YT</span></div>
   <nav>
-    <input type="text" id="search" placeholder="Search script...">
+    <div class="search-wrap">
+      <input type="text" id="search" placeholder="Search scripts...">
+    </div>
   </nav>
 </header>
 
-<!-- ACTION BUTTONS -->
+<!-- ACTION STRIP -->
+<div class="action-strip">
+  <a href="https://youtube.com/@captainmanjiro?si=rYCoBQY-wWLYLSQa" target="_blank">Subscribe</a>
+  <a href="https://discord.com/invite/WS9vzUWM4R" target="_blank">Discord</a>
+  <a href="#contact">Contact</a>
+  <a href="https://discord.com/invite/WS9vzUWM4R" target="_blank">Info</a>
+</div>
+
+<!-- VIDEOS -->
 <section class="section">
-  <div class="action-buttons">
-    <a href="https://youtube.com/@captainmanjiro?si=rYCoBQY-wWLYLSQa" target="_blank">Subscribe</a>
-    <a href="https://discord.com/invite/WS9vzUWM4R" target="_blank">Discord</a>
-    <a href="#contact" target="_blank">Contact</a>
-    <a href="https://discord.com/invite/WS9vzUWM4R" target="_blank">Info</a>
-  </div>
-</section>
-
-
-
-<!-- YOUTUBE VIDEOS -->
-<section class="section">
-  <h2>Latest YouTube Videos</h2>
+  <div class="section-title">Latest Videos</div>
+  <div class="section-subtitle">From the Channel</div>
   <div class="video-grid" id="youtubeVideos"></div>
 </section>
 
+<div class="divider"></div>
 
-
-<section class="section">
-  <h2>All Scripts</h2>
-  <div class="script-container">
-    <div class="ads-grid">
-
-      <div class="ad-card">
-        <img src="https://i.imgur.com/oLedgOz.png">
-        <a href="https://link-hub.net/1180115/j3naBQkLsVm7" target="_blank" class="download-btn">Script</a>
-        <h3> Save Brainrots From Backrooms </h3>
-        <h3> *NO KEY* (Auto Op, Auto Godly, Collect Cash) </h3>
-      </div>
-
-      <div class="ad-card">
-        <img src="https://i.imgur.com/0E94j9t.png">
-        <a href="https://link-target.net/1180115/BsF7kH0rTNgh" target="_blank" class="download-btn">Script</a>
-        <h3> Star Fishing </h3>
-        <h3> *NO KEY* (Instant Catch, Auto Sell, Telepory & Auto Quest) </h3>
-      </div>
-
-      <div class="ad-card">
-        <img src="https://i.imgur.com/yOBEPk5.png">
-        <a href="https://link-target.net/1180115/9gRhJrJ79Itr" target="_blank" class="download-btn">Script</a>
-        <h3> Anime Finals </h3>
-        <h3> Auto Farm, Auto Eggs, Teleport & Auto Dungeon </h3>
-      </div>
-
-
-      
-      <div class="ad-card">
-        <img src="https://i.imgur.com/kUueBRw.png">
-        <a href="https://rekonise.com/build-a-store-best-script-inf-money-2omj0" target="_blank" class="download-btn">Script</a>
-        <h3>Build a Store</h3>
-        <h3>(INF Money)</h3>
-      </div>
-
-      <div class="ad-card">
-        <img src="https://i.imgur.com/AvwuVGw.png">
-        <a href="https://rekonise.com/murder-mystery-2-best-script-no-key-coins-and-candy-auto-farm-auto-grab-gun-esp-dupe-w8rge" target="_blank" class="download-btn">Script</a>
-        <h3>Murder Mystery 2</h3>
-        <h3>*NO KEY* (Coins & Candy Auto Farm, Auto Grab Gun, ESP, Dupe)</h3>
-      </div>
-
-      <div class="ad-card">
-        <img src="https://i.imgur.com/wnDW0yc.png">
-        <a href="https://rekonise.com/evadebest-script-no-key-auto-farm-auto-heart-auto-revive-inf-slide-esp-t8a8q" target="_blank" class="download-btn">Script</a>
-        <h3>Evade</h3>
-        <h3>*NO KEY* (Auto Farm, Auto Heart, Auto Revive, INF Slide, ESP)</h3>
-      </div>
-
-      <div class="ad-card">
-        <img src="https://i.imgur.com/FPdiGaY.png">
-        <a href=" https://link-target.net/1180115/aM3bQSSIxWls " target="_blank" class="download-btn">Script</a>
-        <h3>STEAL a Brainrot or DIE</h3>
-        <h3> Instant Steal, Auto Farm, Teleport To Secrets, OG, Celestial & More </h3>
-      </div>
-
-      <div class="ad-card">
-        <img src=" https://i.imgur.com/rCwkEbH.png ">
-        <a href=" https://link-hub.net/1180115/aavb68m97QGx " target="_blank" class="download-btn">Script</a>
-        <h3>Sambung Kata</h3>
-        <h3> Auto Asnwer Letter </h3>
-      </div>
-
-      <div class="ad-card">
-        <img src=" https://i.imgur.com/J9gaGeF.png ">
-        <a href=" https://link-center.net/1180115/T1yWqsM3hUPt " target="_blank" class="download-btn">Script</a>
-        <h3>Abyss</h3>
-        <h3> Auto Farm, Auto Catch, Auto Sell, Farming Mutations & More </h3>
-      </div>
-
-      <div class="ad-card">
-        <img src=" https://i.imgur.com/q42piEq.png ">
-        <a href=" https://link-hub.net/1180115/fi5nRdsvv578 " target="_blank" class="download-btn">Script</a>
-        <h3>Zero to Hero</h3>
-        <h3> Auto Farm, Auto Attack, Auto Collect Spheres, Auto Hatch & More </h3>
-      </div>
-
-      <div class="ad-card">
-        <img src=" https://i.imgur.com/mmKAJIK.png ">
-        <a href=" https://link-target.net/1180115/Q2N9UHj03vyf " target="_blank" class="download-btn">Script</a>
-        <h3> Fight Your Zombie </h3>
-        <h3> Kill Aura, Upgrade Stuff, Upgrade Levels, Grow Brain & More </h3>
-      </div>
-
-      <div class="ad-card">
-        <img src=" https://i.imgur.com/Kl02tPj.png ">
-        <a href=" https://linkvertise.com/1180115/ZAuLP4MMeGVl?o=sharing " target="_blank" class="download-btn">Script</a>
-        <h3> Anime ALL </h3>
-        <h3> Auto Farm,  Auto Attack, Auto Claim Auto Rank & More </h3>
-      </div>
-
-      <div class="ad-card">
-        <img src="  https://i.imgur.com/6IC88Xl.png ">
-        <a href=" https://paste-drop.com/paste/s86ju4CPJX " target="_blank" class="download-btn">Script</a>
-        <h3>Catch and Tame!</h3>
-        <h3> Set Lasso Strength, Find Strongest Pet, Auto Sell, UnlockAutoClicker &More </h3>
-      </div>
-
-      <div class="ad-card">
-        <img src="https://i.imgur.com/AP18cm6.png">
-        <a href="https://paste-drop.com/paste/K1k0fDftm2" target="_blank" class="download-btn">Script</a>
-        <h3>Last Letter</h3>
-        <h3>OP Fully Customisable AutoPlayer Bot [FREE]</h3>
-      </div>
-
-      <div class="ad-card">
-        <img src="https://i.imgur.com/158LkhP.png">
-        <a href="https://paste-drop.com/paste/FCRrUznMbj" target="_blank" class="download-btn">Script</a>
-        <h3>Five Nights: Hunted</h3>
-        <h3>Auto Attack, INF Stamina, Delete All Doors, Esp & More</h3>
-      </div>
-
-      <div class="ad-card">
-        <img src="https://i.imgur.com/7hgCYql.png">
-        <a href="https://linkvertise.com/1180115/v4DOV2yjTV0L?o=sharing" target="_blank" class="download-btn">Script</a>
-        <h3>Survive LAVA for Brainrots!</h3>
-        <h3>No Lava Damage, Walk Speed, AutoBuy Features & More</h3>
-      </div>
-
-      <div class="ad-card">
-        <img src="https://i.imgur.com/DW6UJZ3.png">
-        <a href="https://linkvertise.com/1180115/kbpCkkzIwATL?o=sharing" target="_blank" class="download-btn">Script</a>
-        <h3>Abyss [BETA]</h3>
-        <h3>Auto Fishing (Auto Catch), Auto Sell, , Auto Collect Dead Fish & More</h3>
-      </div>
-
-      <div class="ad-card">
-        <img src="https://i.imgur.com/qmLxTLE.png">
-        <a href="https://linkvertise.com/1180115/PFgoMy27IJCd?o=sharing" target="_blank" class="download-btn">Script</a>
-        <h3>Grow a Universe</h3>
-        <h3>Unlimited Universe Seeds - Prismatic</h3>
-      </div>
-
-      <!-- Add remaining script cards here -->
-
-      
-
+<!-- SCRIPTS -->
+<div class="scripts-section">
+  <div class="scripts-header">
+    <div>
+      <div class="section-title">All Scripts</div>
+      <div class="section-subtitle">Roblox Scripts</div>
     </div>
+    <div class="scripts-count" id="scripts-count"></div>
   </div>
-</section>
+
+  <div class="ads-grid" id="adsGrid">
+
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/oLedgOz.png" alt="Save Brainrots From Backrooms"></div>
+      <div class="card-body">
+        <div class="card-name">Save Brainrots From Backrooms</div>
+        <div class="card-desc">Auto Op, Auto Godly, Collect Cash</div>
+        <div class="card-tags"><span class="tag">No Key</span><span class="tag">Auto Farm</span></div>
+        <a href="https://link-hub.net/1180115/j3naBQkLsVm7" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/0E94j9t.png" alt="Star Fishing"></div>
+      <div class="card-body">
+        <div class="card-name">Star Fishing</div>
+        <div class="card-desc">Instant Catch, Auto Sell, Teleport &amp; Auto Quest</div>
+        <div class="card-tags"><span class="tag">No Key</span><span class="tag">Auto Sell</span></div>
+        <a href="https://link-target.net/1180115/BsF7kH0rTNgh" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/yOBEPk5.png" alt="Anime Finals"></div>
+      <div class="card-body">
+        <div class="card-name">Anime Finals</div>
+        <div class="card-desc">Auto Farm, Auto Eggs, Teleport &amp; Auto Dungeon</div>
+        <div class="card-tags"><span class="tag">Auto Farm</span><span class="tag">Dungeon</span></div>
+        <a href="https://link-target.net/1180115/9gRhJrJ79Itr" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/kUueBRw.png" alt="Build a Store"></div>
+      <div class="card-body">
+        <div class="card-name">Build a Store</div>
+        <div class="card-desc">Infinite Money exploit</div>
+        <div class="card-tags"><span class="tag">INF Money</span></div>
+        <a href="https://rekonise.com/build-a-store-best-script-inf-money-2omj0" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/AvwuVGw.png" alt="Murder Mystery 2"></div>
+      <div class="card-body">
+        <div class="card-name">Murder Mystery 2</div>
+        <div class="card-desc">Coins &amp; Candy Auto Farm, Auto Grab Gun, ESP, Dupe</div>
+        <div class="card-tags"><span class="tag">No Key</span><span class="tag">ESP</span></div>
+        <a href="https://rekonise.com/murder-mystery-2-best-script-no-key-coins-and-candy-auto-farm-auto-grab-gun-esp-dupe-w8rge" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/wnDW0yc.png" alt="Evade"></div>
+      <div class="card-body">
+        <div class="card-name">Evade</div>
+        <div class="card-desc">Auto Farm, Auto Heart, Auto Revive, INF Slide, ESP</div>
+        <div class="card-tags"><span class="tag">No Key</span><span class="tag">INF Slide</span></div>
+        <a href="https://rekonise.com/evadebest-script-no-key-auto-farm-auto-heart-auto-revive-inf-slide-esp-t8a8q" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/FPdiGaY.png" alt="STEAL a Brainrot or DIE"></div>
+      <div class="card-body">
+        <div class="card-name">STEAL a Brainrot or DIE</div>
+        <div class="card-desc">Instant Steal, Auto Farm, Teleport To Secrets, OG, Celestial &amp; More</div>
+        <div class="card-tags"><span class="tag">Auto Farm</span><span class="tag">Teleport</span></div>
+        <a href="https://link-target.net/1180115/aM3bQSSIxWls" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/rCwkEbH.png" alt="Sambung Kata"></div>
+      <div class="card-body">
+        <div class="card-name">Sambung Kata</div>
+        <div class="card-desc">Auto Answer Letter</div>
+        <div class="card-tags"><span class="tag">Auto Answer</span></div>
+        <a href="https://link-hub.net/1180115/aavb68m97QGx" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/J9gaGeF.png" alt="Abyss"></div>
+      <div class="card-body">
+        <div class="card-name">Abyss</div>
+        <div class="card-desc">Auto Farm, Auto Catch, Auto Sell, Farming Mutations &amp; More</div>
+        <div class="card-tags"><span class="tag">Auto Farm</span><span class="tag">Mutations</span></div>
+        <a href="https://link-center.net/1180115/T1yWqsM3hUPt" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/q42piEq.png" alt="Zero to Hero"></div>
+      <div class="card-body">
+        <div class="card-name">Zero to Hero</div>
+        <div class="card-desc">Auto Farm, Auto Attack, Auto Collect Spheres, Auto Hatch &amp; More</div>
+        <div class="card-tags"><span class="tag">Auto Hatch</span></div>
+        <a href="https://link-hub.net/1180115/fi5nRdsvv578" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/mmKAJIK.png" alt="Fight Your Zombie"></div>
+      <div class="card-body">
+        <div class="card-name">Fight Your Zombie</div>
+        <div class="card-desc">Kill Aura, Upgrade Stuff, Upgrade Levels, Grow Brain &amp; More</div>
+        <div class="card-tags"><span class="tag">Kill Aura</span></div>
+        <a href="https://link-target.net/1180115/Q2N9UHj03vyf" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/Kl02tPj.png" alt="Anime ALL"></div>
+      <div class="card-body">
+        <div class="card-name">Anime ALL</div>
+        <div class="card-desc">Auto Farm, Auto Attack, Auto Claim, Auto Rank &amp; More</div>
+        <div class="card-tags"><span class="tag">Auto Rank</span></div>
+        <a href="https://linkvertise.com/1180115/ZAuLP4MMeGVl?o=sharing" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/6IC88Xl.png" alt="Catch and Tame!"></div>
+      <div class="card-body">
+        <div class="card-name">Catch and Tame!</div>
+        <div class="card-desc">Set Lasso Strength, Find Strongest Pet, Auto Sell, Unlock AutoClicker &amp; More</div>
+        <div class="card-tags"><span class="tag">Auto Sell</span></div>
+        <a href="https://paste-drop.com/paste/s86ju4CPJX" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/AP18cm6.png" alt="Last Letter"></div>
+      <div class="card-body">
+        <div class="card-name">Last Letter</div>
+        <div class="card-desc">OP Fully Customisable AutoPlayer Bot</div>
+        <div class="card-tags"><span class="tag">Free</span><span class="tag">AutoBot</span></div>
+        <a href="https://paste-drop.com/paste/K1k0fDftm2" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/158LkhP.png" alt="Five Nights: Hunted"></div>
+      <div class="card-body">
+        <div class="card-name">Five Nights: Hunted</div>
+        <div class="card-desc">Auto Attack, INF Stamina, Delete All Doors, ESP &amp; More</div>
+        <div class="card-tags"><span class="tag">INF Stamina</span><span class="tag">ESP</span></div>
+        <a href="https://paste-drop.com/paste/FCRrUznMbj" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/7hgCYql.png" alt="Survive LAVA for Brainrots!"></div>
+      <div class="card-body">
+        <div class="card-name">Survive LAVA for Brainrots!</div>
+        <div class="card-desc">No Lava Damage, Walk Speed, AutoBuy Features &amp; More</div>
+        <div class="card-tags"><span class="tag">No Damage</span></div>
+        <a href="https://linkvertise.com/1180115/v4DOV2yjTV0L?o=sharing" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/DW6UJZ3.png" alt="Abyss BETA"></div>
+      <div class="card-body">
+        <div class="card-name">Abyss [BETA]</div>
+        <div class="card-desc">Auto Fishing (Auto Catch), Auto Sell, Auto Collect Dead Fish &amp; More</div>
+        <div class="card-tags"><span class="tag">Beta</span><span class="tag">Auto Fish</span></div>
+        <a href="https://linkvertise.com/1180115/kbpCkkzIwATL?o=sharing" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+    <div class="ad-card">
+      <div class="card-img-wrap"><img src="https://i.imgur.com/qmLxTLE.png" alt="Grow a Universe"></div>
+      <div class="card-body">
+        <div class="card-name">Grow a Universe</div>
+        <div class="card-desc">Unlimited Universe Seeds - Prismatic</div>
+        <div class="card-tags"><span class="tag">Unlimited</span><span class="tag">Prismatic</span></div>
+        <a href="https://linkvertise.com/1180115/PFgoMy27IJCd?o=sharing" target="_blank" class="download-btn">Get Script</a>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <footer>
-© 2026 Captain Manjiro | Script
+  &copy; 2026 Captain Manjiro &nbsp;—&nbsp; Free Roblox Scripts
 </footer>
 
 <script>
-/* HUMAN VERIFICATION PUZZLE */
+/* ── HUMAN VERIFICATION ── */
 const overlay = document.getElementById("humanCheck");
 const puzzleQuestion = document.getElementById("puzzleQuestion");
 const puzzleAnswer = document.getElementById("puzzleAnswer");
@@ -520,78 +738,75 @@ const errorMsg = document.getElementById("errorMsg");
 function generatePuzzle() {
   const a = Math.floor(Math.random() * 5) + 1;
   const b = Math.floor(Math.random() * 5) + 1;
-  const answer = a + b;
-  puzzleQuestion.textContent = `What is ${a} + ${b}?`;
-  return answer;
+  puzzleQuestion.textContent = `${a}  +  ${b}  = ?`;
+  return a + b;
 }
 
 let correctAnswer = generatePuzzle();
 
 verifyBtn.addEventListener("click", () => {
   if (parseInt(puzzleAnswer.value) === correctAnswer) {
-    overlay.style.display = "none";
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.4s ease';
+    setTimeout(() => overlay.style.display = 'none', 400);
   } else {
     errorMsg.style.display = "block";
     puzzleAnswer.value = "";
+    puzzleAnswer.style.borderColor = '#ff5555';
+    setTimeout(() => puzzleAnswer.style.borderColor = '', 600);
     correctAnswer = generatePuzzle();
   }
 });
 
-puzzleAnswer.addEventListener("keyup", (e) => {
-  if (e.key === "Enter") verifyBtn.click();
-});
+puzzleAnswer.addEventListener("keyup", e => { if (e.key === "Enter") verifyBtn.click(); });
 
-/* YOUTUBE VIDEOS DYNAMIC INSERT */
+/* ── YOUTUBE VIDEOS ── */
 const videos = [
-  "https://www.youtube.com/watch?v=6-23XvXMEFY",
-  "https://www.youtube.com/watch?v=3sPixeLT06U",
-  "https://www.youtube.com/watch?v=9E-Os9tB3AE&t=59s"
+  "https://www.youtube.com/watch?v=-1HQtgqzHsU",
+  "https://www.youtube.com/watch?v=PCURo5IFdv4",
+  "https://www.youtube.com/watch?v=LsPjLkawdJc"
 ];
 
 const container = document.getElementById("youtubeVideos");
 
 videos.forEach(link => {
-  const urlParams = new URLSearchParams(link.split('?')[1]);
-  const videoID = urlParams.get("v");
+  const videoID = new URLSearchParams(link.split('?')[1]).get("v");
   if (!videoID) return;
 
-  const card = document.createElement("div");
-  card.classList.add("video-card");
+  const card = document.createElement("a");
+  card.className = "video-card";
+  card.href = link;
+  card.target = "_blank";
 
-  const icon = document.createElement("img");
-  icon.src = `https://img.youtube.com/vi/${videoID}/default.jpg`;
-  icon.alt = "Video Icon";
-  icon.classList.add("video-icon");
-  card.appendChild(icon);
-
-  const thumbLink = document.createElement("a");
-  thumbLink.href = link;
-  thumbLink.target = "_blank";
-
-  const thumb = document.createElement("img");
-  thumb.src = `https://img.youtube.com/vi/${videoID}/hqdefault.jpg`;
-  thumb.alt = "Video Thumbnail";
-  thumb.classList.add("video-thumbnail");
-
-  thumbLink.appendChild(thumb);
-  card.appendChild(thumbLink);
+  card.innerHTML = `
+    <img class="video-thumbnail" src="https://img.youtube.com/vi/${videoID}/hqdefault.jpg" alt="Video" loading="lazy">
+    <div class="video-play-icon"><div class="play-circle">▶</div></div>
+  `;
 
   container.appendChild(card);
 });
 
-/* SEARCH FUNCTION */
-document.getElementById("search").addEventListener("keyup", function(){
-  let filter = this.value.toLowerCase();
-  let cards = document.querySelectorAll(".ad-card");
+/* ── SEARCH ── */
+document.getElementById("search").addEventListener("input", function() {
+  const filter = this.value.toLowerCase();
+  const cards = document.querySelectorAll(".ad-card");
+  let visible = 0;
   cards.forEach(card => {
-    let text = card.innerText.toLowerCase();
-    card.style.display = text.includes(filter) ? "block" : "none";
+    const match = card.innerText.toLowerCase().includes(filter);
+    card.style.display = match ? "" : "none";
+    if (match) visible++;
   });
+  document.getElementById('scripts-count').textContent = `${visible} scripts`;
 });
 
-</script>
+/* ── SCRIPT COUNT ── */
+const allCards = document.querySelectorAll(".ad-card");
+document.getElementById('scripts-count').textContent = `${allCards.length} scripts`;
 
+/* ── STAGGER CARDS ── */
+allCards.forEach((card, i) => {
+  card.style.animationDelay = `${i * 0.04}s`;
+});
+</script>
 </body>
 </html>
-
-
