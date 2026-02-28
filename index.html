@@ -324,6 +324,12 @@ nav input:focus { border-color: var(--white); background: rgba(255,255,255,0.08)
 /* ── SCRIPT GRID ── */
 .scripts-section {
   padding: 80px 60px;
+  overflow: visible;
+}
+
+.carousel-wrap {
+  position: relative;
+  padding: 0 32px;
 }
 
 .scripts-header {
@@ -340,14 +346,57 @@ nav input:focus { border-color: var(--white); background: rgba(255,255,255,0.08)
   padding-bottom: 4px;
 }
 
-.ads-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
+/* ── CAROUSEL WRAPPER ── */
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px;
+  height: 80px;
+  background: rgba(0,0,0,0.75);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  user-select: none;
+  border-radius: 2px;
 }
 
-@media(max-width:900px){ .ads-grid { grid-template-columns: repeat(2,1fr); } }
-@media(max-width:600px){ .ads-grid { grid-template-columns: 1fr; } }
+.carousel-arrow:hover {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+.carousel-arrow:active { transform: translateY(-50%) scale(0.94); }
+
+.carousel-arrow.left  { left: -24px; }
+.carousel-arrow.right { right: -24px; }
+
+@media(max-width:900px){
+  .carousel-arrow.left  { left: 0; }
+  .carousel-arrow.right { right: 0; }
+}
+
+.ads-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.ads-grid::-webkit-scrollbar { display: none; }
 
 /* ── SCRIPT CARD ── */
 .ad-card {
@@ -358,6 +407,14 @@ nav input:focus { border-color: var(--white); background: rgba(255,255,255,0.08)
   transition: border-color 0.25s;
   display: flex;
   flex-direction: column;
+  min-width: 300px;
+  width: 300px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+@media(max-width:600px){
+  .ad-card { min-width: 260px; width: 260px; }
 }
 
 .ad-card:hover { border-color: rgba(255,255,255,0.2); }
@@ -479,6 +536,82 @@ footer {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ── SCROLL BUTTONS ── */
+.scroll-btns {
+  position: fixed;
+  right: 28px;
+  bottom: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 500;
+}
+
+.scroll-btn {
+  width: 46px;
+  height: 46px;
+  background: rgba(10,10,10,0.85);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 2px;
+  color: #fff;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: background 0.2s, border-color 0.2s, transform 0.15s, opacity 0.3s;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+
+.scroll-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scroll-btn:hover {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+  transform: scale(1.08);
+}
+
+.scroll-btn:active { transform: scale(0.95); }
+
+/* label tooltip */
+.scroll-btn[data-tip] {
+  position: relative;
+}
+.scroll-btn[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(10,10,10,0.9);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 9px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  border-radius: 1px;
+}
+.scroll-btn[data-tip]:hover::after { opacity: 1; }
+
+@media(max-width:768px){
+  .scroll-btns { right: 16px; bottom: 24px; }
+  .scroll-btn { width: 40px; height: 40px; font-size: 15px; }
+}
 </style>
 </head>
 <body>
@@ -528,7 +661,7 @@ footer {
 <div class="divider"></div>
 
 <!-- SCRIPTS -->
-<div class="scripts-section">
+<div class="scripts-section" id="scriptsSection">
   <div class="scripts-header">
     <div>
       <div class="section-title">All Scripts</div>
@@ -537,8 +670,10 @@ footer {
     <div class="scripts-count" id="scripts-count"></div>
   </div>
 
+  <div class="carousel-wrap">
+  <button class="carousel-arrow left" id="arrowLeft">&#8249;</button>
+  <button class="carousel-arrow right" id="arrowRight">&#8250;</button>
   <div class="ads-grid" id="adsGrid">
-
 
     <div class="ad-card">
       <div class="card-img-wrap"><img src="https://i.imgur.com/oLedgOz.png" alt="Save Brainrots From Backrooms"></div>
@@ -720,12 +855,19 @@ footer {
       </div>
     </div>
 
-  </div>
+  </div><!-- /.ads-grid -->
+  </div><!-- /.carousel-wrap -->
 </div>
 
 <footer>
   &copy; 2026 Captain Manjiro &nbsp;—&nbsp; Free Roblox Scripts
 </footer>
+
+<!-- ── SCROLL BUTTONS ── -->
+<div class="scroll-btns">
+  <button class="scroll-btn" id="btnScrollScripts" data-tip="All Scripts" title="Go to Scripts">▼</button>
+  <button class="scroll-btn" id="btnScrollTop" data-tip="Back to Top" title="Back to Top">▲</button>
+</div>
 
 <script>
 /* ── HUMAN VERIFICATION ── */
@@ -799,15 +941,74 @@ document.getElementById("search").addEventListener("input", function() {
   document.getElementById('scripts-count').textContent = `${visible} scripts`;
 });
 
-/* ── SCRIPT COUNT ── */
+/* ── CAROUSEL ARROWS ── */
+const adsGrid   = document.getElementById("adsGrid");
+const arrowLeft  = document.getElementById("arrowLeft");
+const arrowRight = document.getElementById("arrowRight");
+const SCROLL_AMT = 310;
+
+arrowLeft.addEventListener("click", () => {
+  adsGrid.scrollBy({ left: -SCROLL_AMT, behavior: "smooth" });
+});
+arrowRight.addEventListener("click", () => {
+  adsGrid.scrollBy({ left: SCROLL_AMT, behavior: "smooth" });
+});
+
+// hide/show arrows based on scroll position
+function updateArrows() {
+  arrowLeft.style.opacity  = adsGrid.scrollLeft > 10 ? "1" : "0.3";
+  arrowLeft.style.pointerEvents = adsGrid.scrollLeft > 10 ? "auto" : "none";
+  const maxScroll = adsGrid.scrollWidth - adsGrid.clientWidth;
+  arrowRight.style.opacity  = adsGrid.scrollLeft < maxScroll - 10 ? "1" : "0.3";
+  arrowRight.style.pointerEvents = adsGrid.scrollLeft < maxScroll - 10 ? "auto" : "none";
+}
+adsGrid.addEventListener("scroll", updateArrows, { passive: true });
+updateArrows();
 const allCards = document.querySelectorAll(".ad-card");
 document.getElementById('scripts-count').textContent = `${allCards.length} scripts`;
+setTimeout(updateArrows, 200);
 
 /* ── STAGGER CARDS ── */
 allCards.forEach((card, i) => {
   card.style.animationDelay = `${i * 0.04}s`;
 });
+
+/* ── SCROLL BUTTONS LOGIC ── */
+const btnScrollScripts = document.getElementById("btnScrollScripts");
+const btnScrollTop     = document.getElementById("btnScrollTop");
+const scriptsSection   = document.getElementById("scriptsSection");
+
+function updateScrollBtns() {
+  const scrollY       = window.scrollY;
+  const scriptTop     = scriptsSection.getBoundingClientRect().top + scrollY;
+  const nearBottom    = (window.innerHeight + scrollY) >= document.body.scrollHeight - 80;
+  const pastScripts   = scrollY + window.innerHeight * 0.4 >= scriptTop;
+
+  // "go to scripts" — show when above the scripts section, hide once there
+  if (!pastScripts) {
+    btnScrollScripts.classList.add("visible");
+  } else {
+    btnScrollScripts.classList.remove("visible");
+  }
+
+  // "go to top" — show once user has scrolled down a bit
+  if (scrollY > 200) {
+    btnScrollTop.classList.add("visible");
+  } else {
+    btnScrollTop.classList.remove("visible");
+  }
+}
+
+window.addEventListener("scroll", updateScrollBtns, { passive: true });
+updateScrollBtns();
+
+btnScrollScripts.addEventListener("click", () => {
+  scriptsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+btnScrollTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
 </script>
 </body>
 </html>
-
