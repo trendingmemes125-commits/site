@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Captain Manjiro - Free Roblox Scripts Hub. Auto Farm, ESP, Teleport and more scripts updated daily.">
+<meta name="theme-color" content="#000000">
 <title>Captain Manjiro — Script Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -36,6 +38,7 @@ body {
   overflow-x: hidden;
   cursor: default;
   letter-spacing: 0.3px;
+  line-height: 1.5;
 }
 
 /* ── NOISE OVERLAY ── */
@@ -198,7 +201,7 @@ body::after {
 
 #errorMsg {
   font-size: 12px;
-  color: #d0d0d0;
+  color: #ff6b6b;
   margin-top: 10px;
   display: none;
   font-family: 'JetBrains Mono', monospace;
@@ -236,6 +239,7 @@ header {
   white-space: nowrap;
   font-weight: 400;
   transition: all 0.6s ease;
+  text-decoration: none;
 }
 
 .logo span { 
@@ -378,7 +382,7 @@ nav input:focus {
 /* ── VIDEO GRID ── */
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2px;
   max-width: 1100px;
   margin: 0 auto;
@@ -393,6 +397,9 @@ nav input:focus {
   border-radius: 8px;
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .video-card::after {
@@ -473,7 +480,7 @@ nav input:focus {
 /* ── STATS SECTION ── */
 .stats-section {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   padding: 50px 60px;
   margin-bottom: 40px;
@@ -689,6 +696,7 @@ nav input:focus {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   overflow-x: visible;
+  gap: 2px;
 }
 
 /* ── SCRIPT CARD ── */
@@ -724,7 +732,7 @@ nav input:focus {
   background: rgba(255, 255, 255, 0.05);
 }
 
-.ad-card:hover .card-img { 
+.ad-card:hover .video-thumbnail { 
   transform: scale(1.06); 
 }
 
@@ -738,6 +746,9 @@ nav input:focus {
   background: #0a0a0a;
   position: relative;
   border-radius: 6px 6px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .card-img-wrap img {
@@ -747,6 +758,10 @@ nav input:focus {
   display: block;
   transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   filter: brightness(0.95);
+}
+
+.card-img-wrap.placeholder {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
 }
 
 .ad-card:hover .card-img-wrap img {
@@ -778,9 +793,9 @@ nav input:focus {
 }
 
 .card-status.online {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(0, 255, 100, 0.15);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(0, 255, 100, 0.3);
 }
 
 .card-status.offline {
@@ -790,9 +805,15 @@ nav input:focus {
 }
 
 .card-status.beta {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 150, 0, 0.12);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 150, 0, 0.25);
+}
+
+.card-status.patch {
+  background: rgba(100, 150, 255, 0.12);
+  color: #ffffff;
+  border: 1px solid rgba(100, 150, 255, 0.25);
 }
 
 @keyframes pulseStatus {
@@ -903,6 +924,7 @@ nav input:focus {
   border-radius: 6px;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .download-btn::before {
@@ -1233,7 +1255,7 @@ footer {
     <h2>Access Gate</h2>
     <p>Verify you're human to continue</p>
     <p id="puzzleQuestion">Loading...</p>
-    <input type="text" id="puzzleAnswer" placeholder="Answer">
+    <input type="text" id="puzzleAnswer" placeholder="Answer" inputmode="numeric" autocomplete="off">
     <button id="verifyBtn">Enter Site</button>
     <p id="errorMsg">Incorrect — try again.</p>
   </div>
@@ -1246,20 +1268,20 @@ footer {
 
 <!-- HEADER -->
 <header>
-  <div class="logo">Captain Manjiro <span>YT</span></div>
+  <a href="#" class="logo">Captain Manjiro <span>YT</span></a>
   <nav>
     <div class="search-wrap">
-      <input type="text" id="search" placeholder="Search scripts...">
+      <input type="text" id="search" placeholder="Search scripts..." autocomplete="off">
     </div>
   </nav>
 </header>
 
 <!-- ACTION STRIP -->
 <div class="action-strip">
-  <a href="https://youtube.com/@captainmanjiro?si=rYCoBQY-wWLYLSQa" target="_blank">Subscribe</a>
-  <a href="https://discord.com/invite/WS9vzUWM4R" target="_blank">Discord</a>
+  <a href="https://youtube.com/@captainmanjiro?si=rYCoBQY-wWLYLSQa" target="_blank" rel="noopener">Subscribe</a>
+  <a href="https://discord.com/invite/WS9vzUWM4R" target="_blank" rel="noopener">Discord</a>
   <a href="#contact">Contact</a>
-  <a href="https://discord.com/invite/WS9vzUWM4R" target="_blank">Info</a>
+  <a href="https://discord.com/invite/WS9vzUWM4R" target="_blank" rel="noopener">Info</a>
 </div>
 
 <!-- VIDEOS -->
@@ -1274,19 +1296,19 @@ footer {
 <!-- STATS DASHBOARD -->
 <div class="stats-section" id="statsSection">
   <div class="stat-card">
-    <div class="stat-number" id="totalScripts">21</div>
+    <div class="stat-number" id="totalScripts">0</div>
     <div class="stat-label">Total Scripts</div>
   </div>
   <div class="stat-card">
-    <div class="stat-number" id="onlineScripts">21</div>
+    <div class="stat-number" id="onlineScripts">0</div>
     <div class="stat-label">Online</div>
   </div>
   <div class="stat-card">
-    <div class="stat-number" id="updatedRecently">8</div>
+    <div class="stat-number" id="updatedRecently">0</div>
     <div class="stat-label">Updated Today</div>
   </div>
   <div class="stat-card">
-    <div class="stat-number" id="betaScripts">3</div>
+    <div class="stat-number" id="betaScripts">0</div>
     <div class="stat-label">Beta Scripts</div>
   </div>
 </div>
@@ -1300,7 +1322,7 @@ footer {
     </div>
     <div class="scripts-info">
       <div class="filter-buttons" id="filterButtons"></div>
-      <div class="scripts-count" id="scripts-count"></div>
+      <div class="scripts-count" id="scripts-count">0 scripts</div>
     </div>
   </div>
 
@@ -1310,7 +1332,7 @@ footer {
     <div class="ads-grid" id="adsGrid"></div>
     <div class="empty-state" id="emptyState" style="display:none;">
       <p>No scripts found matching your filters.</p>
-      <button onclick="document.getElementById('search').value=''; document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); renderScripts();">Clear Filters</button>
+      <button onclick="clearFilters()">Clear Filters</button>
     </div>
   </div>
 </div>
@@ -1330,10 +1352,10 @@ footer {
 const scriptsData = [
   {
     id: 1,
-    name: " Deadly Delivery[VD Pt.2]] ",
-    description: " Auto Loot, Infinite Stamina, Auto Sublevel, Esp All & More ",
-    image: " https://i.imgur.com/snWXPPQ.png",
-    tags: ["auto  loot"],
+    name: "Deadly Delivery VD Pt.2",
+    description: "Auto Loot, Infinite Stamina, Auto Sublevel, Esp All & More",
+    image: "https://i.imgur.com/snWXPPQ.png",
+    tags: ["auto loot", "ESP"],
     category: "horror",
     link: "https://paste-drop.com/paste/69XXVWKfAk",
     status: "online",
@@ -1341,9 +1363,9 @@ const scriptsData = [
   },
   {
     id: 2,
-    name: " +1 Upgrade Per Second [⭐️NEW⭐️] ",
-    description: " Auto Win ",
-    image: " https://i.imgur.com/VcPn9D8.png",
+    name: "+1 Upgrade Per Second NEW",
+    description: "Auto Win",
+    image: "https://i.imgur.com/VcPn9D8.png",
     tags: ["No Key", "Auto Win"],
     category: "farming",
     link: "https://paste-drop.com/paste/GjJkU1Fjue",
@@ -1353,30 +1375,30 @@ const scriptsData = [
   {
     id: 3,
     name: "Idle Potato Game",
-    description: "(Fast Click, Auto Farm, Auto Upgrade, Auto Potions & Auto Sell)",
+    description: "Fast Click, Auto Farm, Auto Upgrade, Auto Potions & Auto Sell",
     image: "https://i.imgur.com/1JQwKp9.png",
     tags: ["fast click", "Auto Farm"],
-    category: "progresion",
+    category: "farming",
     link: "https://paste-drop.com/paste/hhyM040iy1",
     status: "online",
     updated: "Today"
   },
   {
-    id: 1,
-    name: " DOORS [BATTLE MODE QUEUE 🎮]  ",
-    description: " All Items Esp, Antil All Glitched & More ",
-    image: " https://i.imgur.com/TgrRYHM.png ",
-    tags: ["all items esp"],
+    id: 4,
+    name: "DOORS BATTLE MODE QUEUE",
+    description: "All Items Esp, Anti All Glitched & More",
+    image: "https://i.imgur.com/TgrRYHM.png",
+    tags: ["all items esp", "Horror"],
     category: "horror",
     link: "https://paste-drop.com/paste/69XXVWKfAk",
     status: "online",
     updated: "Today"
   },
   {
-    id: 2,
-    name: " Swing Obby for Brainrots!  ",
-    description: " *NO KEY* Auto Steal, Auto Sell All & Auto Upgrades ",
-    image: " https://i.imgur.com/73FUaW6.png ",
+    id: 5,
+    name: "Swing Obby for Brainrots",
+    description: "NO KEY Auto Steal, Auto Sell All & Auto Upgrades",
+    image: "https://i.imgur.com/73FUaW6.png",
     tags: ["No Key", "Auto steal"],
     category: "farming",
     link: "https://paste-drop.com/paste/2bM3HtZsai",
@@ -1384,42 +1406,42 @@ const scriptsData = [
     updated: "Today"
   },
   {
-    id: 3,
-    name: "Fatal Floors 👁️",
-    description: "*NO KEY* Auto Farm Shards & Auto Sell",
+    id: 6,
+    name: "Fatal Floors",
+    description: "NO KEY Auto Farm Shards & Auto Sell",
     image: "https://i.imgur.com/1chCg69.png",
     tags: ["No Key", "Auto Farm"],
-    category: "Survival",
+    category: "survival",
     link: "https://paste-drop.com/paste/58Wrai65Ri",
     status: "online",
     updated: "Today"
   },
   {
-    id: 1,
-    name: "[🌕] Launch Your Rocket",
-    description: " INF Money, Auto Farm, Auto Buy, Auto Collect ",
-    image: " https://i.imgur.com/HFD7SLC.png ",
-    tags: ["Inf Money"],
+    id: 7,
+    name: "Launch Your Rocket",
+    description: "INF Money, Auto Farm, Auto Buy, Auto Collect",
+    image: "https://i.imgur.com/HFD7SLC.png",
+    tags: ["Inf Money", "Tycoon"],
     category: "tycoon",
     link: "https://paste-drop.com/paste/1VYqO0pPzM",
     status: "online",
     updated: "Today"
   },
   {
-    id: 1,
-    name: " Knife Ability Test ",
-    description: " *NO KEY* (Auto Kill All, Aimbot, Esp, Teleport & Farm kill) ",
-    image: " https://i.imgur.com/jHJP0iK.png ",
-    tags: ["No Key", "Auto kill All"],
+    id: 8,
+    name: "Knife Ability Test",
+    description: "NO KEY Auto Kill All, Aimbot, Esp, Teleport & Farm kill",
+    image: "https://i.imgur.com/jHJP0iK.png",
+    tags: ["No Key", "Auto kill"],
     category: "pvp",
     link: "https://paste-drop.com/paste/NDYgxExvUo",
     status: "online",
     updated: "Today"
   },
   {
-    id: 1,
-    name: "+1 Age Every Click 👶",
-    description: "*NO KEY*  (Auto age,  Auto Win, Get Coins & Teleport)",
+    id: 9,
+    name: "+1 Age Every Click",
+    description: "NO KEY Auto age, Auto Win, Get Coins & Teleport",
     image: "https://i.imgur.com/HByXcw8.png",
     tags: ["No Key", "win"],
     category: "farming",
@@ -1428,9 +1450,9 @@ const scriptsData = [
     updated: "Today"
   },
   {
-    id: 1,
-    name: "[⚡KASHIMO] KAIZEN",
-    description: "NO KEY (Auto Farm, Infinite Exp, Auto Unlock HR & Auto Chest)",
+    id: 10,
+    name: "KASHIMO KAIZEN",
+    description: "NO KEY Auto Farm, Infinite Exp, Auto Unlock HR & Auto Chest",
     image: "https://i.imgur.com/jDtWYix.png",
     tags: ["No Key", "Inf Exp"],
     category: "anime",
@@ -1439,7 +1461,7 @@ const scriptsData = [
     updated: "Today"
   },
   {
-    id: 2,
+    id: 11,
     name: "Age Evolution Tycoon",
     description: "INF Money",
     image: "https://i.imgur.com/bldKvhY.png",
@@ -1450,8 +1472,8 @@ const scriptsData = [
     updated: "2d ago"
   },
   {
-    id: 3,
-    name: "Pocong: Cursed Hospital [Beta] [Scary Horror]",
+    id: 12,
+    name: "Pocong: Cursed Hospital",
     description: "Teleport Item, Full Bright, Esp Pocong & Item",
     image: "https://i.imgur.com/CR0Xpqo.png",
     tags: ["No Key", "Teleport Item"],
@@ -1461,7 +1483,7 @@ const scriptsData = [
     updated: "1h ago"
   },
   {
-    id: 4,
+    id: 13,
     name: "Save Brainrots From Backrooms",
     description: "Auto Op, Auto Godly, Collect Cash",
     image: "https://i.imgur.com/oLedgOz.png",
@@ -1472,7 +1494,7 @@ const scriptsData = [
     updated: "5d ago"
   },
   {
-    id: 5,
+    id: 14,
     name: "Star Fishing",
     description: "Instant Catch, Auto Sell, Teleport & Auto Quest",
     image: "https://i.imgur.com/0E94j9t.png",
@@ -1483,7 +1505,7 @@ const scriptsData = [
     updated: "Today"
   },
   {
-    id: 6,
+    id: 15,
     name: "Anime Finals",
     description: "Auto Farm, Auto Eggs, Teleport & Auto Dungeon",
     image: "https://i.imgur.com/yOBEPk5.png",
@@ -1494,18 +1516,18 @@ const scriptsData = [
     updated: "3d ago"
   },
   {
-    id: 7,
+    id: 16,
     name: "Build a Store",
     description: "Infinite Money exploit",
     image: "https://i.imgur.com/kUueBRw.png",
-    tags: ["INF Money"],
+    tags: ["INF Money", "Store"],
     category: "tycoon",
     link: "https://rekonise.com/build-a-store-best-script-inf-money-2omj0",
     status: "offline",
     updated: "2w ago"
   },
   {
-    id: 8,
+    id: 17,
     name: "Murder Mystery 2",
     description: "Coins & Candy Auto Farm, Auto Grab Gun, ESP, Dupe",
     image: "https://i.imgur.com/AvwuVGw.png",
@@ -1516,7 +1538,7 @@ const scriptsData = [
     updated: "1d ago"
   },
   {
-    id: 9,
+    id: 18,
     name: "Evade",
     description: "Auto Farm, Auto Heart, Auto Revive, INF Slide, ESP",
     image: "https://i.imgur.com/wnDW0yc.png",
@@ -1527,7 +1549,7 @@ const scriptsData = [
     updated: "Today"
   },
   {
-    id: 10,
+    id: 19,
     name: "STEAL a Brainrot or DIE",
     description: "Instant Steal, Auto Farm, Teleport To Secrets, OG, Celestial & More",
     image: "https://i.imgur.com/FPdiGaY.png",
@@ -1538,18 +1560,18 @@ const scriptsData = [
     updated: "4d ago"
   },
   {
-    id: 11,
+    id: 20,
     name: "Sambung Kata",
     description: "Auto Answer Letter",
     image: "https://i.imgur.com/rCwkEbH.png",
-    tags: ["Auto Answer"],
+    tags: ["Auto Answer", "Puzzle"],
     category: "puzzle",
     link: "https://link-hub.net/1180115/aavb68m97QGx",
     status: "online",
     updated: "1w ago"
   },
   {
-    id: 12,
+    id: 21,
     name: "Abyss",
     description: "Auto Farm, Auto Catch, Auto Sell, Farming Mutations & More",
     image: "https://i.imgur.com/J9gaGeF.png",
@@ -1558,105 +1580,6 @@ const scriptsData = [
     link: "https://link-center.net/1180115/T1yWqsM3hUPt",
     status: "online",
     updated: "6h ago"
-  },
-  {
-    id: 13,
-    name: "Zero to Hero",
-    description: "Auto Farm, Auto Attack, Auto Collect Spheres, Auto Hatch & More",
-    image: "https://i.imgur.com/q42piEq.png",
-    tags: ["Auto Hatch"],
-    category: "progression",
-    link: "https://link-hub.net/1180115/fi5nRdsvv578",
-    status: "online",
-    updated: "Today"
-  },
-  {
-    id: 14,
-    name: "Fight Your Zombie",
-    description: "Kill Aura, Upgrade Stuff, Upgrade Levels, Grow Brain & More",
-    image: "https://i.imgur.com/mmKAJIK.png",
-    tags: ["Kill Aura"],
-    category: "combat",
-    link: "https://link-target.net/1180115/Q2N9UHj03vyf",
-    status: "beta",
-    updated: "12h ago"
-  },
-  {
-    id: 15,
-    name: "Anime ALL",
-    description: "Auto Farm, Auto Attack, Auto Claim, Auto Rank & More",
-    image: "https://i.imgur.com/Kl02tPj.png",
-    tags: ["Auto Rank"],
-    category: "anime",
-    link: "https://linkvertise.com/1180115/ZAuLP4MMeGVl?o=sharing",
-    status: "online",
-    updated: "3h ago"
-  },
-  {
-    id: 16,
-    name: "Catch and Tame!",
-    description: "Set Lasso Strength, Find Strongest Pet, Auto Sell, Unlock AutoClicker & More",
-    image: "https://i.imgur.com/6IC88Xl.png",
-    tags: ["Auto Sell"],
-    category: "farming",
-    link: "https://paste-drop.com/paste/s86ju4CPJX",
-    status: "online",
-    updated: "2d ago"
-  },
-  {
-    id: 17,
-    name: "Last Letter",
-    description: "OP Fully Customisable AutoPlayer Bot",
-    image: "https://i.imgur.com/AP18cm6.png",
-    tags: ["Free", "AutoBot"],
-    category: "puzzle",
-    link: "https://paste-drop.com/paste/K1k0fDftm2",
-    status: "online",
-    updated: "1w ago"
-  },
-  {
-    id: 18,
-    name: "Five Nights: Hunted",
-    description: "Auto Attack, INF Stamina, Delete All Doors, ESP & More",
-    image: "https://i.imgur.com/158LkhP.png",
-    tags: ["INF Stamina", "ESP"],
-    category: "horror",
-    link: "https://paste-drop.com/paste/FCRrUznMbj",
-    status: "beta",
-    updated: "8h ago"
-  },
-  {
-    id: 19,
-    name: "Survive LAVA for Brainrots!",
-    description: "No Lava Damage, Walk Speed, AutoBuy Features & More",
-    image: "https://i.imgur.com/7hgCYql.png",
-    tags: ["No Damage"],
-    category: "survival",
-    link: "https://linkvertise.com/1180115/v4DOV2yjTV0L?o=sharing",
-    status: "online",
-    updated: "4d ago"
-  },
-  {
-    id: 20,
-    name: "Abyss [BETA]",
-    description: "Auto Fishing (Auto Catch), Auto Sell, Auto Collect Dead Fish & More",
-    image: "https://i.imgur.com/DW6UJZ3.png",
-    tags: ["Beta", "Auto Fish"],
-    category: "farming",
-    link: "https://linkvertise.com/1180115/kbpCkkzIwATL?o=sharing",
-    status: "beta",
-    updated: "Today"
-  },
-  {
-    id: 21,
-    name: "Grow a Universe",
-    description: "Unlimited Universe Seeds - Prismatic",
-    image: "https://i.imgur.com/qmLxTLE.png",
-    tags: ["Unlimited", "Prismatic"],
-    category: "tycoon",
-    link: "https://linkvertise.com/1180115/PFgoMy27IJCd?o=sharing",
-    status: "online",
-    updated: "1d ago"
   }
 ];
 
@@ -1681,63 +1604,79 @@ const verifyBtn = document.getElementById("verifyBtn");
 const errorMsg = document.getElementById("errorMsg");
 
 function generatePuzzle() {
-  const a = Math.floor(Math.random() * 5) + 1;
-  const b = Math.floor(Math.random() * 5) + 1;
-  puzzleQuestion.textContent = `${a}  +  ${b}  = ?`;
+  const a = Math.floor(Math.random() * 10) + 1;
+  const b = Math.floor(Math.random() * 10) + 1;
+  puzzleQuestion.textContent = `${a} + ${b} = ?`;
   return a + b;
 }
 
 let correctAnswer = generatePuzzle();
+let attemptCount = 0;
 
 verifyBtn.addEventListener("click", () => {
-  if (parseInt(puzzleAnswer.value) === correctAnswer) {
+  const answer = parseInt(puzzleAnswer.value);
+  if (answer === correctAnswer) {
     overlay.style.opacity = '0';
     overlay.style.transition = 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
     setTimeout(() => overlay.style.display = 'none', 500);
+    sessionStorage.setItem('humanVerified', 'true');
   } else {
+    attemptCount++;
     errorMsg.style.display = "block";
     puzzleAnswer.value = "";
-    correctAnswer = generatePuzzle();
+    if (attemptCount >= 3) {
+      correctAnswer = generatePuzzle();
+      attemptCount = 0;
+    }
   }
 });
 
 puzzleAnswer.addEventListener("keyup", e => { if (e.key === "Enter") verifyBtn.click(); });
 
+// Check if already verified
+if (sessionStorage.getItem('humanVerified') === 'true') {
+  overlay.style.display = 'none';
+}
+
 /* ── YOUTUBE VIDEOS ── */
 const videos = [
-  "https://www.youtube.com/watch?v=eYFkZn97hXE",
-  "https://www.youtube.com/watch?v=34l0SqIVHvQ",
-  "https://www.youtube.com/watch?v=4ohLoqeUIco"
+  "eYFkZn97hXE",
+  "34l0SqIVHvQ",
+  "4ohLoqeUIco"
 ];
 
 const container = document.getElementById("youtubeVideos");
+if (container) {
+  videos.forEach(videoID => {
+    if (!videoID) return;
 
-videos.forEach(link => {
-  const videoID = new URLSearchParams(link.split('?')[1]).get("v");
-  if (!videoID) return;
+    const card = document.createElement("a");
+    card.className = "video-card";
+    card.href = `https://www.youtube.com/watch?v=${videoID}`;
+    card.target = "_blank";
+    card.rel = "noopener";
 
-  const card = document.createElement("a");
-  card.className = "video-card";
-  card.href = link;
-  card.target = "_blank";
+    card.innerHTML = `
+      <img class="video-thumbnail" src="https://img.youtube.com/vi/${videoID}/hqdefault.jpg" alt="Video" loading="lazy">
+      <div class="video-play-icon"><div class="play-circle">▶</div></div>
+    `;
 
-  card.innerHTML = `
-    <img class="video-thumbnail" src="https://img.youtube.com/vi/${videoID}/hqdefault.jpg" alt="Video" loading="lazy">
-    <div class="video-play-icon"><div class="play-circle">▶</div></div>
-  `;
-
-  container.appendChild(card);
-});
+    container.appendChild(card);
+  });
+}
 
 /* ── AUTO UPDATE YEAR ── */
 document.getElementById('year').textContent = new Date().getFullYear();
 
 /* ── UPDATE STATS ── */
-function updateStats(filtered) {
+function updateStats(filtered = scriptsData) {
   const totalCount = scriptsData.length;
   const onlineCount = filtered.filter(s => s.status === 'online').length;
   const betaCount = filtered.filter(s => s.status === 'beta').length;
-  const recentCount = filtered.filter(s => s.updated === 'Today' || s.updated === '1h ago' || s.updated === '3h ago' || s.updated === '6h ago' || s.updated === '8h ago' || s.updated === '12h ago').length;
+  const recentCount = filtered.filter(s => {
+    const timeAgo = s.updated.toLowerCase();
+    return timeAgo.includes('today') || timeAgo.includes('h ago') || timeAgo.includes('1d') || timeAgo.includes('d ago');
+  }).length;
   
   document.getElementById('totalScripts').textContent = totalCount;
   document.getElementById('onlineScripts').textContent = onlineCount;
@@ -1751,6 +1690,8 @@ let searchQuery = "";
 
 function initFilterButtons() {
   const filterContainer = document.getElementById("filterButtons");
+  if (!filterContainer) return;
+  
   filterContainer.innerHTML = "";
   
   categories.forEach(cat => {
@@ -1771,11 +1712,23 @@ function initFilterButtons() {
   });
 }
 
+/* ── CLEAR FILTERS ── */
+function clearFilters() {
+  document.getElementById('search').value = '';
+  searchQuery = '';
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
+  activeCategory = 'all';
+  renderScripts();
+}
+
 /* ── RENDER SCRIPTS ── */
 function renderScripts() {
   const grid = document.getElementById("adsGrid");
   const emptyState = document.getElementById("emptyState");
   const countEl = document.getElementById("scripts-count");
+  
+  if (!grid || !emptyState || !countEl) return;
   
   grid.innerHTML = "";
   
@@ -1783,7 +1736,7 @@ function renderScripts() {
   
   // Filter by category
   if (activeCategory !== "all") {
-    filtered = filtered.filter(s => s.category === activeCategory);
+    filtered = filtered.filter(s => s.category.toLowerCase() === activeCategory.toLowerCase());
   }
   
   // Filter by search
@@ -1801,8 +1754,10 @@ function renderScripts() {
   
   // Show/hide carousel arrows
   const hasScripts = filtered.length > 0;
-  document.getElementById("arrowLeft").style.display = hasScripts ? "flex" : "none";
-  document.getElementById("arrowRight").style.display = hasScripts ? "flex" : "none";
+  const arrowLeft = document.getElementById("arrowLeft");
+  const arrowRight = document.getElementById("arrowRight");
+  if (arrowLeft) arrowLeft.style.display = hasScripts ? "flex" : "none";
+  if (arrowRight) arrowRight.style.display = hasScripts ? "flex" : "none";
   
   if (filtered.length === 0) {
     emptyState.style.display = "block";
@@ -1819,12 +1774,12 @@ function renderScripts() {
     card.style.animationDelay = `${i * 0.05}s`;
     
     const tagsHTML = script.tags.map(tag => `<span class="tag">${tag}</span>`).join("");
-    const statusClass = script.status || 'online';
+    const statusClass = (script.status || 'online').toLowerCase();
     const statusLabel = statusClass.charAt(0).toUpperCase() + statusClass.slice(1);
     
     card.innerHTML = `
       <div class="card-img-wrap">
-        <img src="${script.image}" alt="${script.name}" loading="lazy">
+        <img src="${script.image}" alt="${script.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22169%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22169%22/%3E%3C/svg%3E'">
         <div class="card-status ${statusClass}">${statusLabel}</div>
       </div>
       <div class="card-body">
@@ -1832,10 +1787,10 @@ function renderScripts() {
           <span></span>
           <span class="card-updated">Updated ${script.updated}</span>
         </div>
-        <div class="card-name">${script.name}</div>
-        <div class="card-desc">${script.description}</div>
+        <div class="card-name">${escape(script.name)}</div>
+        <div class="card-desc">${escape(script.description)}</div>
         <div class="card-tags">${tagsHTML}</div>
-        <a href="${script.link}" target="_blank" class="download-btn">Get Script</a>
+        <a href="${script.link}" target="_blank" rel="noopener" class="download-btn">Get Script</a>
       </div>
     `;
     
@@ -1843,45 +1798,63 @@ function renderScripts() {
   });
 }
 
+function escape(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
 /* ── SEARCH ── */
-document.getElementById("search").addEventListener("input", function() {
-  searchQuery = this.value;
-  renderScripts();
-});
+const searchInput = document.getElementById("search");
+if (searchInput) {
+  searchInput.addEventListener("input", function() {
+    searchQuery = this.value.trim();
+    renderScripts();
+  });
+}
 
 /* ── CAROUSEL ARROWS ── */
-const adsGrid   = document.getElementById("adsGrid");
-const arrowLeft  = document.getElementById("arrowLeft");
+const adsGrid = document.getElementById("adsGrid");
+const arrowLeft = document.getElementById("arrowLeft");
 const arrowRight = document.getElementById("arrowRight");
 const SCROLL_AMT = 310;
 
-arrowLeft.addEventListener("click", () => {
-  adsGrid.scrollBy({ left: -SCROLL_AMT, behavior: "smooth" });
-});
+if (arrowLeft && adsGrid) {
+  arrowLeft.addEventListener("click", () => {
+    adsGrid.scrollBy({ left: -SCROLL_AMT, behavior: "smooth" });
+  });
+}
 
-arrowRight.addEventListener("click", () => {
-  adsGrid.scrollBy({ left: SCROLL_AMT, behavior: "smooth" });
-});
+if (arrowRight && adsGrid) {
+  arrowRight.addEventListener("click", () => {
+    adsGrid.scrollBy({ left: SCROLL_AMT, behavior: "smooth" });
+  });
+}
 
 function updateArrows() {
-  arrowLeft.style.opacity  = adsGrid.scrollLeft > 10 ? "1" : "0.3";
+  if (!adsGrid || !arrowLeft || !arrowRight) return;
+  arrowLeft.style.opacity = adsGrid.scrollLeft > 10 ? "1" : "0.3";
   arrowLeft.style.pointerEvents = adsGrid.scrollLeft > 10 ? "auto" : "none";
   const maxScroll = adsGrid.scrollWidth - adsGrid.clientWidth;
-  arrowRight.style.opacity  = adsGrid.scrollLeft < maxScroll - 10 ? "1" : "0.3";
+  arrowRight.style.opacity = adsGrid.scrollLeft < maxScroll - 10 ? "1" : "0.3";
   arrowRight.style.pointerEvents = adsGrid.scrollLeft < maxScroll - 10 ? "auto" : "none";
 }
 
-adsGrid.addEventListener("scroll", updateArrows, { passive: true });
+if (adsGrid) {
+  adsGrid.addEventListener("scroll", updateArrows, { passive: true });
+}
 
 /* ── SCROLL BUTTONS LOGIC ── */
 const btnScrollScripts = document.getElementById("btnScrollScripts");
-const btnScrollTop     = document.getElementById("btnScrollTop");
-const scriptsSection   = document.getElementById("scriptsSection");
+const btnScrollTop = document.getElementById("btnScrollTop");
+const scriptsSection = document.getElementById("scriptsSection");
 
 function updateScrollBtns() {
-  const scrollY       = window.scrollY;
-  const scriptTop     = scriptsSection.getBoundingClientRect().top + scrollY;
-  const pastScripts   = scrollY + window.innerHeight * 0.4 >= scriptTop;
+  if (!btnScrollScripts || !btnScrollTop || !scriptsSection) return;
+  
+  const scrollY = window.scrollY;
+  const scriptTop = scriptsSection.getBoundingClientRect().top + scrollY;
+  const pastScripts = scrollY + window.innerHeight * 0.4 >= scriptTop;
 
   if (!pastScripts) {
     btnScrollScripts.classList.add("visible");
@@ -1899,22 +1872,23 @@ function updateScrollBtns() {
 window.addEventListener("scroll", updateScrollBtns, { passive: true });
 updateScrollBtns();
 
-btnScrollScripts.addEventListener("click", () => {
-  scriptsSection.scrollIntoView({ behavior: "smooth", block: "start" });
-});
+if (btnScrollScripts) {
+  btnScrollScripts.addEventListener("click", () => {
+    scriptsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
 
-btnScrollTop.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
+if (btnScrollTop) {
+  btnScrollTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
 
 /* ── INIT ── */
 initFilterButtons();
+updateStats();
 renderScripts();
 setTimeout(updateArrows, 200);
 </script>
 </body>
 </html>
-
-
-
-
