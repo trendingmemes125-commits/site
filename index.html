@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Captain Manjiro - Free Roblox Scripts Hub. Auto Farm, ESP, Teleport and more scripts updated daily.">
+<meta name="theme-color" content="#000000">
 <title>Captain Manjiro — Script Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -36,6 +38,7 @@ body {
   overflow-x: hidden;
   cursor: default;
   letter-spacing: 0.3px;
+  line-height: 1.5;
 }
 
 /* ── NOISE OVERLAY ── */
@@ -59,6 +62,11 @@ body::before {
   z-index: -2;
   opacity: 0.25;
   filter: grayscale(100%) contrast(0.9);
+  background: #000000;
+}
+
+html.video-error #animeBg {
+  display: none;
 }
 
 body::after {
@@ -198,7 +206,7 @@ body::after {
 
 #errorMsg {
   font-size: 12px;
-  color: #d0d0d0;
+  color: #ff6b6b;
   margin-top: 10px;
   display: none;
   font-family: 'JetBrains Mono', monospace;
@@ -236,6 +244,7 @@ header {
   white-space: nowrap;
   font-weight: 400;
   transition: all 0.6s ease;
+  text-decoration: none;
 }
 
 .logo span { 
@@ -378,7 +387,7 @@ nav input:focus {
 /* ── VIDEO GRID ── */
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2px;
   max-width: 1100px;
   margin: 0 auto;
@@ -393,6 +402,9 @@ nav input:focus {
   border-radius: 8px;
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .video-card::after {
@@ -473,7 +485,7 @@ nav input:focus {
 /* ── STATS SECTION ── */
 .stats-section {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   padding: 50px 60px;
   margin-bottom: 40px;
@@ -539,9 +551,44 @@ nav input:focus {
   color: #ffffff;
 }
 
-/* ── SCRIPT FILTERS ── */
+/* ── SCRIPTS FILTERS ── */
 .scripts-section {
   padding: 80px 60px;
+}
+
+.view-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 16px;
+}
+
+.view-toggle-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-light);
+  color: var(--medium-gray);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.view-toggle-btn:hover {
+  border-color: var(--border-medium);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.view-toggle-btn.active {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
 }
 
 .scripts-header {
@@ -689,6 +736,7 @@ nav input:focus {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   overflow-x: visible;
+  gap: 2px;
 }
 
 /* ── SCRIPT CARD ── */
@@ -724,7 +772,7 @@ nav input:focus {
   background: rgba(255, 255, 255, 0.05);
 }
 
-.ad-card:hover .card-img { 
+.ad-card:hover .video-thumbnail { 
   transform: scale(1.06); 
 }
 
@@ -738,6 +786,9 @@ nav input:focus {
   background: #0a0a0a;
   position: relative;
   border-radius: 6px 6px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .card-img-wrap img {
@@ -747,6 +798,10 @@ nav input:focus {
   display: block;
   transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   filter: brightness(0.95);
+}
+
+.card-img-wrap.placeholder {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
 }
 
 .ad-card:hover .card-img-wrap img {
@@ -778,9 +833,9 @@ nav input:focus {
 }
 
 .card-status.online {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(0, 255, 100, 0.15);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(0, 255, 100, 0.3);
 }
 
 .card-status.offline {
@@ -790,9 +845,15 @@ nav input:focus {
 }
 
 .card-status.beta {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 150, 0, 0.12);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 150, 0, 0.25);
+}
+
+.card-status.patch {
+  background: rgba(100, 150, 255, 0.12);
+  color: #ffffff;
+  border: 1px solid rgba(100, 150, 255, 0.25);
 }
 
 @keyframes pulseStatus {
@@ -878,11 +939,21 @@ nav input:focus {
   cursor: pointer;
 }
 
+.tag.category-tag {
+  cursor: pointer;
+}
+
 .tag.category-tag:hover {
   background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
   border-color: var(--border-medium);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.tag.category-tag:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.3);
+  outline-offset: 2px;
 }
 
 .download-btn {
@@ -903,6 +974,7 @@ nav input:focus {
   border-radius: 6px;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .download-btn::before {
@@ -1128,6 +1200,20 @@ footer {
     align-items: flex-start;
   }
 
+  .scripts-info {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .view-toggle {
+    margin-left: 0;
+  }
+
+  .filter-buttons {
+    width: 100%;
+  }
+
   .carousel-wrap {
     padding: 0 20px;
   }
@@ -1217,6 +1303,15 @@ footer {
     gap: 8px;
   }
 
+  .view-toggle {
+    margin-left: 0;
+  }
+
+  .scripts-info {
+    flex-direction: column;
+    width: 100%;
+  }
+
   .card-name { font-size: 1.1rem; }
   
   .card-desc { font-size: 11px; }
@@ -1233,33 +1328,33 @@ footer {
     <h2>Access Gate</h2>
     <p>Verify you're human to continue</p>
     <p id="puzzleQuestion">Loading...</p>
-    <input type="text" id="puzzleAnswer" placeholder="Answer">
+    <input type="text" id="puzzleAnswer" placeholder="Answer" inputmode="numeric" autocomplete="off">
     <button id="verifyBtn">Enter Site</button>
     <p id="errorMsg">Incorrect — try again.</p>
   </div>
 </div>
 
 <!-- VIDEO BACKGROUND -->
-<video autoplay muted loop id="animeBg" playsinline>
+<video autoplay muted loop id="animeBg" playsinline onerror="document.documentElement.classList.add('video-error')">
   <source src="https://res.cloudinary.com/ddjaubjvv/video/upload/v1772110382/Eclipse_The_Awakening_Live_Wallpaper_gziow6.mp4" type="video/mp4">
 </video>
 
 <!-- HEADER -->
 <header>
-  <div class="logo">Captain Manjiro <span>YT</span></div>
+  <a href="#" class="logo">Captain Manjiro <span>YT</span></a>
   <nav>
     <div class="search-wrap">
-      <input type="text" id="search" placeholder="Search scripts...">
+      <input type="text" id="search" placeholder="Search scripts..." autocomplete="off">
     </div>
   </nav>
 </header>
 
 <!-- ACTION STRIP -->
 <div class="action-strip">
-  <a href="https://youtube.com/@captainmanjiro?si=rYCoBQY-wWLYLSQa" target="_blank">Subscribe</a>
-  <a href="https://discord.com/invite/WS9vzUWM4R" target="_blank">Discord</a>
+  <a href="https://youtube.com/@captainmanjiro?si=rYCoBQY-wWLYLSQa" target="_blank" rel="noopener">Subscribe</a>
+  <a href="https://discord.com/invite/WS9vzUWM4R" target="_blank" rel="noopener">Discord</a>
   <a href="#contact">Contact</a>
-  <a href="https://discord.com/invite/WS9vzUWM4R" target="_blank">Info</a>
+  <a href="https://discord.com/invite/WS9vzUWM4R" target="_blank" rel="noopener">Info</a>
 </div>
 
 <!-- VIDEOS -->
@@ -1274,19 +1369,19 @@ footer {
 <!-- STATS DASHBOARD -->
 <div class="stats-section" id="statsSection">
   <div class="stat-card">
-    <div class="stat-number" id="totalScripts">21</div>
+    <div class="stat-number" id="totalScripts">0</div>
     <div class="stat-label">Total Scripts</div>
   </div>
   <div class="stat-card">
-    <div class="stat-number" id="onlineScripts">21</div>
+    <div class="stat-number" id="onlineScripts">0</div>
     <div class="stat-label">Online</div>
   </div>
   <div class="stat-card">
-    <div class="stat-number" id="updatedRecently">8</div>
+    <div class="stat-number" id="updatedRecently">0</div>
     <div class="stat-label">Updated Today</div>
   </div>
   <div class="stat-card">
-    <div class="stat-number" id="betaScripts">3</div>
+    <div class="stat-number" id="betaScripts">0</div>
     <div class="stat-label">Beta Scripts</div>
   </div>
 </div>
@@ -1300,7 +1395,11 @@ footer {
     </div>
     <div class="scripts-info">
       <div class="filter-buttons" id="filterButtons"></div>
-      <div class="scripts-count" id="scripts-count"></div>
+      <div class="view-toggle" id="viewToggle">
+        <button class="view-toggle-btn active" id="viewList" data-view="list" title="List View">☰</button>
+        <button class="view-toggle-btn" id="viewGrid" data-view="grid" title="Grid View">⊞</button>
+      </div>
+      <div class="scripts-count" id="scripts-count">0 scripts</div>
     </div>
   </div>
 
@@ -1310,7 +1409,7 @@ footer {
     <div class="ads-grid" id="adsGrid"></div>
     <div class="empty-state" id="emptyState" style="display:none;">
       <p>No scripts found matching your filters.</p>
-      <button onclick="document.getElementById('search').value=''; document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); renderScripts();">Clear Filters</button>
+      <button onclick="clearFilters()">Clear Filters</button>
     </div>
   </div>
 </div>
@@ -1395,31 +1494,31 @@ const scriptsData = [
     updated: "Today"
   },
   {
-    id: 1,
-    name: "[🌕] Launch Your Rocket",
-    description: " INF Money, Auto Farm, Auto Buy, Auto Collect ",
-    image: " https://i.imgur.com/HFD7SLC.png ",
-    tags: ["Inf Money"],
+    id: 7,
+    name: "Launch Your Rocket",
+    description: "INF Money, Auto Farm, Auto Buy, Auto Collect",
+    image: "https://i.imgur.com/HFD7SLC.png",
+    tags: ["Inf Money", "Tycoon"],
     category: "tycoon",
     link: "https://paste-drop.com/paste/1VYqO0pPzM",
     status: "online",
     updated: "Today"
   },
   {
-    id: 1,
-    name: " Knife Ability Test ",
-    description: " *NO KEY* (Auto Kill All, Aimbot, Esp, Teleport & Farm kill) ",
-    image: " https://i.imgur.com/jHJP0iK.png ",
-    tags: ["No Key", "Auto kill All"],
+    id: 8,
+    name: "Knife Ability Test",
+    description: "NO KEY Auto Kill All, Aimbot, Esp, Teleport & Farm kill",
+    image: "https://i.imgur.com/jHJP0iK.png",
+    tags: ["No Key", "Auto kill"],
     category: "pvp",
     link: "https://paste-drop.com/paste/NDYgxExvUo",
     status: "online",
     updated: "Today"
   },
   {
-    id: 1,
-    name: "+1 Age Every Click 👶",
-    description: "*NO KEY*  (Auto age,  Auto Win, Get Coins & Teleport)",
+    id: 9,
+    name: "+1 Age Every Click",
+    description: "NO KEY Auto age, Auto Win, Get Coins & Teleport",
     image: "https://i.imgur.com/HByXcw8.png",
     tags: ["No Key", "win"],
     category: "farming",
@@ -1428,9 +1527,9 @@ const scriptsData = [
     updated: "Today"
   },
   {
-    id: 1,
-    name: "[⚡KASHIMO] KAIZEN",
-    description: "NO KEY (Auto Farm, Infinite Exp, Auto Unlock HR & Auto Chest)",
+    id: 10,
+    name: "KASHIMO KAIZEN",
+    description: "NO KEY Auto Farm, Infinite Exp, Auto Unlock HR & Auto Chest",
     image: "https://i.imgur.com/jDtWYix.png",
     tags: ["No Key", "Inf Exp"],
     category: "anime",
@@ -1439,7 +1538,7 @@ const scriptsData = [
     updated: "Today"
   },
   {
-    id: 2,
+    id: 11,
     name: "Age Evolution Tycoon",
     description: "INF Money",
     image: "https://i.imgur.com/bldKvhY.png",
@@ -1450,8 +1549,8 @@ const scriptsData = [
     updated: "2d ago"
   },
   {
-    id: 3,
-    name: "Pocong: Cursed Hospital [Beta] [Scary Horror]",
+    id: 12,
+    name: "Pocong: Cursed Hospital",
     description: "Teleport Item, Full Bright, Esp Pocong & Item",
     image: "https://i.imgur.com/CR0Xpqo.png",
     tags: ["No Key", "Teleport Item"],
@@ -1461,7 +1560,7 @@ const scriptsData = [
     updated: "1h ago"
   },
   {
-    id: 4,
+    id: 13,
     name: "Save Brainrots From Backrooms",
     description: "Auto Op, Auto Godly, Collect Cash",
     image: "https://i.imgur.com/oLedgOz.png",
@@ -1472,7 +1571,7 @@ const scriptsData = [
     updated: "5d ago"
   },
   {
-    id: 5,
+    id: 14,
     name: "Star Fishing",
     description: "Instant Catch, Auto Sell, Teleport & Auto Quest",
     image: "https://i.imgur.com/0E94j9t.png",
@@ -1483,7 +1582,7 @@ const scriptsData = [
     updated: "Today"
   },
   {
-    id: 6,
+    id: 15,
     name: "Anime Finals",
     description: "Auto Farm, Auto Eggs, Teleport & Auto Dungeon",
     image: "https://i.imgur.com/yOBEPk5.png",
@@ -1494,18 +1593,18 @@ const scriptsData = [
     updated: "3d ago"
   },
   {
-    id: 7,
+    id: 16,
     name: "Build a Store",
     description: "Infinite Money exploit",
     image: "https://i.imgur.com/kUueBRw.png",
-    tags: ["INF Money"],
+    tags: ["INF Money", "Store"],
     category: "tycoon",
     link: "https://rekonise.com/build-a-store-best-script-inf-money-2omj0",
     status: "offline",
     updated: "2w ago"
   },
   {
-    id: 8,
+    id: 17,
     name: "Murder Mystery 2",
     description: "Coins & Candy Auto Farm, Auto Grab Gun, ESP, Dupe",
     image: "https://i.imgur.com/AvwuVGw.png",
@@ -1516,7 +1615,7 @@ const scriptsData = [
     updated: "1d ago"
   },
   {
-    id: 9,
+    id: 18,
     name: "Evade",
     description: "Auto Farm, Auto Heart, Auto Revive, INF Slide, ESP",
     image: "https://i.imgur.com/wnDW0yc.png",
@@ -1527,7 +1626,7 @@ const scriptsData = [
     updated: "Today"
   },
   {
-    id: 10,
+    id: 19,
     name: "STEAL a Brainrot or DIE",
     description: "Instant Steal, Auto Farm, Teleport To Secrets, OG, Celestial & More",
     image: "https://i.imgur.com/FPdiGaY.png",
@@ -1538,18 +1637,18 @@ const scriptsData = [
     updated: "4d ago"
   },
   {
-    id: 11,
+    id: 20,
     name: "Sambung Kata",
     description: "Auto Answer Letter",
     image: "https://i.imgur.com/rCwkEbH.png",
-    tags: ["Auto Answer"],
+    tags: ["Auto Answer", "Puzzle"],
     category: "puzzle",
     link: "https://link-hub.net/1180115/aavb68m97QGx",
     status: "online",
     updated: "1w ago"
   },
   {
-    id: 12,
+    id: 21,
     name: "Abyss",
     description: "Auto Farm, Auto Catch, Auto Sell, Farming Mutations & More",
     image: "https://i.imgur.com/J9gaGeF.png",
@@ -1560,6 +1659,7 @@ const scriptsData = [
     updated: "6h ago"
   },
   {
+  
     id: 13,
     name: "Zero to Hero",
     description: "Auto Farm, Auto Attack, Auto Collect Spheres, Auto Hatch & More",
@@ -1681,76 +1781,138 @@ const verifyBtn = document.getElementById("verifyBtn");
 const errorMsg = document.getElementById("errorMsg");
 
 function generatePuzzle() {
-  const a = Math.floor(Math.random() * 5) + 1;
-  const b = Math.floor(Math.random() * 5) + 1;
-  puzzleQuestion.textContent = `${a}  +  ${b}  = ?`;
+  const a = Math.floor(Math.random() * 10) + 1;
+  const b = Math.floor(Math.random() * 10) + 1;
+  puzzleQuestion.textContent = `${a} + ${b} = ?`;
   return a + b;
 }
 
 let correctAnswer = generatePuzzle();
+let attemptCount = 0;
 
 verifyBtn.addEventListener("click", () => {
-  if (parseInt(puzzleAnswer.value) === correctAnswer) {
+  if (!puzzleAnswer || !errorMsg) return;
+  const answer = parseInt(puzzleAnswer.value);
+  if (isNaN(answer)) {
+    errorMsg.style.display = "block";
+    return;
+  }
+  if (answer === correctAnswer) {
+    if (!overlay) return;
     overlay.style.opacity = '0';
     overlay.style.transition = 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-    setTimeout(() => overlay.style.display = 'none', 500);
+    setTimeout(() => {
+      if (overlay) overlay.style.display = 'none';
+    }, 500);
+    sessionStorage.setItem('humanVerified', 'true');
   } else {
+    attemptCount++;
     errorMsg.style.display = "block";
     puzzleAnswer.value = "";
-    correctAnswer = generatePuzzle();
+    puzzleAnswer.focus();
+    if (attemptCount >= 3) {
+      correctAnswer = generatePuzzle();
+      attemptCount = 0;
+    }
   }
 });
 
-puzzleAnswer.addEventListener("keyup", e => { if (e.key === "Enter") verifyBtn.click(); });
+puzzleAnswer.addEventListener("keyup", e => {
+  if (!errorMsg) return;
+  if (e.key === "Enter") {
+    if (verifyBtn) verifyBtn.click();
+  }
+  errorMsg.style.display = "none";
+});
+
+// Check if already verified - delay to ensure DOM is ready
+if (overlay) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem('humanVerified') === 'true') {
+        overlay.style.display = 'none';
+      }
+    });
+  } else if (sessionStorage.getItem('humanVerified') === 'true') {
+    overlay.style.display = 'none';
+  }
+}
 
 /* ── YOUTUBE VIDEOS ── */
 const videos = [
-  "https://www.youtube.com/watch?v=eYFkZn97hXE",
-  "https://www.youtube.com/watch?v=34l0SqIVHvQ",
-  "https://www.youtube.com/watch?v=4ohLoqeUIco"
+  "eYFkZn97hXE",
+  "34l0SqIVHvQ",
+  "4ohLoqeUIco"
 ];
 
 const container = document.getElementById("youtubeVideos");
+if (container) {
+  videos.forEach(videoID => {
+    // Validate video ID format
+    if (!videoID || typeof videoID !== 'string' || videoID.length === 0) return;
+    if (!/^[a-zA-Z0-9_-]{11}$/.test(videoID)) {
+      console.warn('Invalid YouTube video ID:', videoID);
+      return;
+    }
 
-videos.forEach(link => {
-  const videoID = new URLSearchParams(link.split('?')[1]).get("v");
-  if (!videoID) return;
+    const card = document.createElement("a");
+    card.className = "video-card";
+    card.href = `https://www.youtube.com/watch?v=${videoID}`;
+    card.target = "_blank";
+    card.rel = "noopener";
+    card.setAttribute('title', 'Open video');
 
-  const card = document.createElement("a");
-  card.className = "video-card";
-  card.href = link;
-  card.target = "_blank";
+    card.innerHTML = `
+      <img class="video-thumbnail" src="https://img.youtube.com/vi/${videoID}/hqdefault.jpg" alt="Video thumbnail" loading="lazy" onerror="this.loadError=true;this.style.background='linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)';">
+      <div class="video-play-icon"><div class="play-circle">▶</div></div>
+    `;
 
-  card.innerHTML = `
-    <img class="video-thumbnail" src="https://img.youtube.com/vi/${videoID}/hqdefault.jpg" alt="Video" loading="lazy">
-    <div class="video-play-icon"><div class="play-circle">▶</div></div>
-  `;
-
-  container.appendChild(card);
-});
+    container.appendChild(card);
+  });
+}
 
 /* ── AUTO UPDATE YEAR ── */
 document.getElementById('year').textContent = new Date().getFullYear();
 
 /* ── UPDATE STATS ── */
-function updateStats(filtered) {
+function updateStats(filtered = scriptsData) {
   const totalCount = scriptsData.length;
-  const onlineCount = filtered.filter(s => s.status === 'online').length;
-  const betaCount = filtered.filter(s => s.status === 'beta').length;
-  const recentCount = filtered.filter(s => s.updated === 'Today' || s.updated === '1h ago' || s.updated === '3h ago' || s.updated === '6h ago' || s.updated === '8h ago' || s.updated === '12h ago').length;
+  const onlineCount = filtered.filter(s => (s.status || '').toLowerCase() === 'online').length;
+  const betaCount = filtered.filter(s => (s.status || '').toLowerCase() === 'beta').length;
   
-  document.getElementById('totalScripts').textContent = totalCount;
-  document.getElementById('onlineScripts').textContent = onlineCount;
-  document.getElementById('updatedRecently').textContent = recentCount;
-  document.getElementById('betaScripts').textContent = betaCount;
+  // Validate status values
+  const validStatuses = ['online', 'offline', 'beta', 'patch'];
+  const invalidScripts = scriptsData.filter(s => !validStatuses.includes((s.status || '').toLowerCase()));
+  if (invalidScripts.length > 0) {
+    console.warn('Scripts with invalid status found');
+  }
+  
+  const recentCount = filtered.filter(s => {
+    if (!s.updated) return false;
+    const timeAgo = s.updated.toLowerCase();
+    return timeAgo.includes('today') || timeAgo.includes('h ago') || timeAgo.match(/^\d+d\s+ago/) || timeAgo.match(/^\d+w\s+ago/);
+  }).length;
+  
+  const totalEl = document.getElementById('totalScripts');
+  const onlineEl = document.getElementById('onlineScripts');
+  const recentEl = document.getElementById('updatedRecently');
+  const betaEl = document.getElementById('betaScripts');
+  
+  if (totalEl) totalEl.textContent = totalCount;
+  if (onlineEl) onlineEl.textContent = onlineCount;
+  if (recentEl) recentEl.textContent = recentCount;
+  if (betaEl) betaEl.textContent = betaCount;
 }
 
-/* ── FILTER BUTTONS ── */
+/* ── SCRIPT FILTERS ── */
 let activeCategory = "all";
 let searchQuery = "";
+let viewMode = "list"; // 'list' or 'grid'
 
 function initFilterButtons() {
   const filterContainer = document.getElementById("filterButtons");
+  if (!filterContainer) return;
+  
   filterContainer.innerHTML = "";
   
   categories.forEach(cat => {
@@ -1759,10 +1921,15 @@ function initFilterButtons() {
     if (cat.id === "all") btn.classList.add("active");
     btn.textContent = cat.label;
     btn.dataset.category = cat.id;
+    btn.setAttribute('aria-pressed', cat.id === 'all' ? 'true' : 'false');
     
     btn.addEventListener("click", () => {
-      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".filter-btn").forEach(b => {
+        b.classList.remove("active");
+        b.setAttribute('aria-pressed', 'false');
+      });
       btn.classList.add("active");
+      btn.setAttribute('aria-pressed', 'true');
       activeCategory = cat.id;
       renderScripts();
     });
@@ -1771,19 +1938,68 @@ function initFilterButtons() {
   });
 }
 
+// View mode toggle
+const viewListBtn = document.getElementById('viewList');
+const viewGridBtn = document.getElementById('viewGrid');
+const adsGridElement = document.getElementById('adsGrid');
+
+if (viewListBtn) {
+  viewListBtn.addEventListener('click', () => {
+    if (!adsGridElement) return;
+    viewMode = 'list';
+    adsGridElement.classList.remove('grid-view');
+    viewListBtn.classList.add('active');
+    if (viewGridBtn) viewGridBtn.classList.remove('active');
+    updateArrows();
+  });
+}
+
+if (viewGridBtn) {
+  viewGridBtn.addEventListener('click', () => {
+    if (!adsGridElement) return;
+    viewMode = 'grid';
+    adsGridElement.classList.add('grid-view');
+    viewGridBtn.classList.add('active');
+    if (viewListBtn) viewListBtn.classList.remove('active');
+    updateArrows();
+  });
+}
+
+/* ── CLEAR FILTERS ── */
+function clearFilters() {
+  const searchInput = document.getElementById('search');
+  if (searchInput) searchInput.value = '';
+  searchQuery = '';
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  const allBtn = document.querySelector('.filter-btn[data-category="all"]');
+  if (allBtn) allBtn.classList.add('active');
+  activeCategory = 'all';
+  renderScripts();
+}
+
 /* ── RENDER SCRIPTS ── */
 function renderScripts() {
   const grid = document.getElementById("adsGrid");
   const emptyState = document.getElementById("emptyState");
   const countEl = document.getElementById("scripts-count");
   
+  if (!grid || !emptyState || !countEl) return;
+  
   grid.innerHTML = "";
   
-  let filtered = scriptsData;
+  let filtered = scriptsData.filter(s => {
+    // Validate required fields
+    if (!s.id || !s.name || !s.description || !s.image || !s.link) return false;
+    if (!Array.isArray(s.tags)) s.tags = [];
+    if (!s.category) s.category = 'other';
+    if (!s.status) s.status = 'online';
+    if (!s.updated) s.updated = 'Unknown';
+    return true;
+  });
   
   // Filter by category
   if (activeCategory !== "all") {
-    filtered = filtered.filter(s => s.category === activeCategory);
+    filtered = filtered.filter(s => s.category.toLowerCase() === activeCategory.toLowerCase());
   }
   
   // Filter by search
@@ -1799,10 +2015,12 @@ function renderScripts() {
   // Update stats
   updateStats(filtered);
   
-  // Show/hide carousel arrows
-  const hasScripts = filtered.length > 0;
-  document.getElementById("arrowLeft").style.display = hasScripts ? "flex" : "none";
-  document.getElementById("arrowRight").style.display = hasScripts ? "flex" : "none";
+  // Show/hide carousel arrows for list view only
+  const hasScripts = filtered.length > 0 && viewMode === 'list';
+  const arrowLeft = document.getElementById("arrowLeft");
+  const arrowRight = document.getElementById("arrowRight");
+  if (arrowLeft) arrowLeft.style.display = hasScripts ? "flex" : "none";
+  if (arrowRight) arrowRight.style.display = hasScripts ? "flex" : "none";
   
   if (filtered.length === 0) {
     emptyState.style.display = "block";
@@ -1818,70 +2036,141 @@ function renderScripts() {
     card.className = "ad-card";
     card.style.animationDelay = `${i * 0.05}s`;
     
-    const tagsHTML = script.tags.map(tag => `<span class="tag">${tag}</span>`).join("");
-    const statusClass = script.status || 'online';
-    const statusLabel = statusClass.charAt(0).toUpperCase() + statusClass.slice(1);
+    const tagsHTML = script.tags
+      .filter(tag => typeof tag === 'string' && tag.length > 0)
+      .map(tag => `<span class="tag category-tag" role="button" tabindex="0" title="Filter by tag">${sanitizeText(tag)}</span>`)
+      .join("");
+    
+    const statusClass = (script.status || 'online').toLowerCase();
+    const validStatuses = ['online', 'offline', 'beta', 'patch'];
+    const finalStatus = validStatuses.includes(statusClass) ? statusClass : 'online';
+    const statusLabel = finalStatus.charAt(0).toUpperCase() + finalStatus.slice(1);
+    
+    // Validate URL
+    let href = script.link;
+    try {
+      new URL(href);
+    } catch (e) {
+      console.warn('Invalid script URL:', href);
+      href = '#';
+    }
+    
+    const sanitizedName = document.createElement('div');
+    sanitizedName.textContent = script.name;
+    const sanitizedDesc = document.createElement('div');
+    sanitizedDesc.textContent = script.description;
     
     card.innerHTML = `
       <div class="card-img-wrap">
-        <img src="${script.image}" alt="${script.name}" loading="lazy">
-        <div class="card-status ${statusClass}">${statusLabel}</div>
+        <img src="${script.image}" alt="${sanitizedName.textContent}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22169%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22169%22/%3E%3C/svg%3E'" crossorigin="anonymous">
+        <div class="card-status ${finalStatus}">${statusLabel}</div>
       </div>
       <div class="card-body">
         <div class="card-meta">
           <span></span>
-          <span class="card-updated">Updated ${script.updated}</span>
+          <span class="card-updated">Updated ${sanitizeText(script.updated)}</span>
         </div>
-        <div class="card-name">${script.name}</div>
-        <div class="card-desc">${script.description}</div>
+        <div class="card-name">${sanitizedName.innerHTML}</div>
+        <div class="card-desc">${sanitizedDesc.innerHTML}</div>
         <div class="card-tags">${tagsHTML}</div>
-        <a href="${script.link}" target="_blank" class="download-btn">Get Script</a>
+        <a href="${href}" target="_blank" rel="noopener noreferrer" class="download-btn" aria-label="Get ${sanitizedName.textContent} script">Get Script</a>
       </div>
     `;
     
+    // Add tag filter functionality
+    card.querySelectorAll('.category-tag').forEach(tag => {
+      tag.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tagText = tag.textContent.toLowerCase();
+        const searchInput = document.getElementById('search');
+        if (searchInput) {
+          searchInput.value = tagText;
+          searchInput.focus();
+        }
+        searchQuery = tagText;
+        renderScripts();
+      });
+      
+      tag.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          tag.click();
+        }
+      });
+    });
+    
     grid.appendChild(card);
   });
+  
+  setTimeout(updateArrows, 50);
+}
+
+// Sanitization helper - creates safe HTML from text
+function sanitizeText(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
 }
 
 /* ── SEARCH ── */
-document.getElementById("search").addEventListener("input", function() {
-  searchQuery = this.value;
-  renderScripts();
-});
+const searchInput = document.getElementById("search");
+if (searchInput) {
+  searchInput.addEventListener("input", function() {
+    searchQuery = this.value.trim();
+    renderScripts();
+  });
+}
 
 /* ── CAROUSEL ARROWS ── */
-const adsGrid   = document.getElementById("adsGrid");
-const arrowLeft  = document.getElementById("arrowLeft");
+const adsGrid = document.getElementById("adsGrid");
+const arrowLeft = document.getElementById("arrowLeft");
 const arrowRight = document.getElementById("arrowRight");
 const SCROLL_AMT = 310;
 
-arrowLeft.addEventListener("click", () => {
-  adsGrid.scrollBy({ left: -SCROLL_AMT, behavior: "smooth" });
-});
+if (arrowLeft && adsGrid) {
+  arrowLeft.addEventListener("click", () => {
+    adsGrid.scrollBy({ left: -SCROLL_AMT, behavior: "smooth" });
+  });
+}
 
-arrowRight.addEventListener("click", () => {
-  adsGrid.scrollBy({ left: SCROLL_AMT, behavior: "smooth" });
-});
+if (arrowRight && adsGrid) {
+  arrowRight.addEventListener("click", () => {
+    adsGrid.scrollBy({ left: SCROLL_AMT, behavior: "smooth" });
+  });
+}
 
 function updateArrows() {
-  arrowLeft.style.opacity  = adsGrid.scrollLeft > 10 ? "1" : "0.3";
+  if (!adsGrid || !arrowLeft || !arrowRight) return;
+  const isGridView = adsGrid.classList.contains('grid-view');
+  if (isGridView) {
+    arrowLeft.style.display = 'none';
+    arrowRight.style.display = 'none';
+    return;
+  }
+  arrowLeft.style.opacity = adsGrid.scrollLeft > 10 ? "1" : "0.3";
   arrowLeft.style.pointerEvents = adsGrid.scrollLeft > 10 ? "auto" : "none";
   const maxScroll = adsGrid.scrollWidth - adsGrid.clientWidth;
-  arrowRight.style.opacity  = adsGrid.scrollLeft < maxScroll - 10 ? "1" : "0.3";
+  arrowRight.style.opacity = adsGrid.scrollLeft < maxScroll - 10 ? "1" : "0.3";
   arrowRight.style.pointerEvents = adsGrid.scrollLeft < maxScroll - 10 ? "auto" : "none";
 }
 
-adsGrid.addEventListener("scroll", updateArrows, { passive: true });
+if (adsGrid) {
+  adsGrid.addEventListener("scroll", updateArrows, { passive: true });
+}
+
+window.addEventListener("resize", updateArrows, { passive: true });
 
 /* ── SCROLL BUTTONS LOGIC ── */
 const btnScrollScripts = document.getElementById("btnScrollScripts");
-const btnScrollTop     = document.getElementById("btnScrollTop");
-const scriptsSection   = document.getElementById("scriptsSection");
+const btnScrollTop = document.getElementById("btnScrollTop");
+const scriptsSection = document.getElementById("scriptsSection");
 
 function updateScrollBtns() {
-  const scrollY       = window.scrollY;
-  const scriptTop     = scriptsSection.getBoundingClientRect().top + scrollY;
-  const pastScripts   = scrollY + window.innerHeight * 0.4 >= scriptTop;
+  if (!btnScrollScripts || !btnScrollTop || !scriptsSection) return;
+  
+  const scrollY = window.scrollY;
+  const scriptTop = scriptsSection.getBoundingClientRect().top + scrollY;
+  const pastScripts = scrollY + window.innerHeight * 0.4 >= scriptTop;
 
   if (!pastScripts) {
     btnScrollScripts.classList.add("visible");
@@ -1899,21 +2188,25 @@ function updateScrollBtns() {
 window.addEventListener("scroll", updateScrollBtns, { passive: true });
 updateScrollBtns();
 
-btnScrollScripts.addEventListener("click", () => {
-  scriptsSection.scrollIntoView({ behavior: "smooth", block: "start" });
-});
+if (btnScrollScripts) {
+  btnScrollScripts.addEventListener("click", () => {
+    if (scriptsSection) {
+      scriptsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+}
 
-btnScrollTop.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
+if (btnScrollTop) {
+  btnScrollTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
 
 /* ── INIT ── */
 initFilterButtons();
+updateStats();
 renderScripts();
 setTimeout(updateArrows, 200);
 </script>
 </body>
 </html>
-
-
-
